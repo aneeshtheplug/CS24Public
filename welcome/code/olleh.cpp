@@ -21,6 +21,10 @@ void reverse()
     getline(cin, input);
 
     int length = input.length();
+    if (length == 0)
+    {
+        cout << endl;
+    }
     for (int i = 0; i < length; i++)
     {
         if (i == length - 1)
