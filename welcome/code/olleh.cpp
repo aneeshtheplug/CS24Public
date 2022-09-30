@@ -28,14 +28,12 @@ int main()
             if (isspace(input[i]) || ispunct(input[i]))
             {
                 cout << reverseWord(word) << input[i];
-                word = "";
             }
             else
             {
                 word = word + input[i];
                 cout << reverseWord(word);
             }
-            cout << endl;
         }
         else if (isspace(input[i]) || ispunct(input[i]))
         {
