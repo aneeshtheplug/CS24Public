@@ -1,4 +1,0 @@
-origin	git@github.com:aneeshtheplug/CS24.git (fetch)
-origin	git@github.com:aneeshtheplug/CS24.git (push)
-upstream	https://github.com/ucsb-cs24/f22.git (fetch)
-upstream	https://github.com/ucsb-cs24/f22.git (push)
