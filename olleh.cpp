@@ -22,15 +22,23 @@ int main()
 
     for (int i = 0; i < input.length(); i++)
     {
-        if (isspace(input[i]) || ispunct(input[i]))
+        if (i == input.length() - 1)
+        {
+            if (isspace(input[i]) || ispunct(input[i]))
+            {
+                cout << reverseWord(word) << input[i] << endl;
+                word = "";
+            }
+            else
+            {
+                word = word + input[i];
+                cout << reverseWord(word) << endl;
+            }
+        }
+        else if (isspace(input[i]) || ispunct(input[i]))
         {
             cout << reverseWord(word) << input[i];
             word = "";
-        }
-        else if (i == input.length() - 1)
-        {
-            word = word + input[i];
-            cout << reverseWord(word) << endl;
         }
         else
         {
