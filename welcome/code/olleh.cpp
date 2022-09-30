@@ -17,11 +17,12 @@ void reverse()
 {
     string input;
     string word = "";
+    int index = 0;
 
     getline(cin, input);
 
     int length = input.length();
-    for (int i = 0; i < length; i++)
+    for (int i = index; i < length; i++)
     {
         if (i == length - 1)
         {
@@ -40,6 +41,7 @@ void reverse()
         {
             cout << reverseWord(word) << input[i];
             word = "";
+            index = index + 1;
         }
         else
         {
