@@ -34,6 +34,7 @@ int main()
                 word = word + input[i];
                 cout << reverseWord(word);
             }
+            cout << endl;
         }
         else if (isspace(input[i]) || ispunct(input[i]))
         {
