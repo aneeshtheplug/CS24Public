@@ -30,7 +30,7 @@ int main()
         else if (i == input.length() - 1)
         {
             word = word + input[i];
-            cout << reverseWord(word);
+            cout << reverseWord(word) << endl;
         }
         else
         {
