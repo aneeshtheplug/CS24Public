@@ -13,7 +13,7 @@ string reverseWord(string word)
     return rev;
 }
 
-int main()
+void reverse()
 {
     string input;
     string word = "";
@@ -46,5 +46,10 @@ int main()
             word = word + input[i];
         }
     }
+}
+
+int main()
+{
+    reverse();
     return 0;
 }
