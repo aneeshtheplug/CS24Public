@@ -47,4 +47,5 @@ int main()
             word = word + input[i];
         }
     }
+    return 0;
 }
