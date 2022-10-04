@@ -1,6 +1,7 @@
 #include <iostream>
 #include "FibVec.h"
 #include <vector>
+#include <stdexcept>
 using namespace std;
 
 FibVec::FibVec()
@@ -27,6 +28,7 @@ void FibVec::pop()
 void FibVec::push(int value)
 {
 }
+
 int FibVec::remove(int index)
 {
 }
