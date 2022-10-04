@@ -4,10 +4,10 @@
 class FibVec
 {
 public:
-    int const capacity();
-    int const count();
+    int capacity() const;
+    int count() const;
     void insert(int value, int index);
-    int const lookup(int index);
+    int lookup(int index) const;
     void pop();
     void push(int value);
     int remove(int index);
