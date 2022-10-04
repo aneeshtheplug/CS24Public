@@ -1,9 +1,11 @@
 #include <iostream>
+#include <cstddef>
 #include <vector>
 
 class FibVec
 {
 public:
+    FibVec();
     int capacity() const;
     int count() const;
     void insert(int value, int index);
