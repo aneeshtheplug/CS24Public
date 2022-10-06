@@ -35,33 +35,44 @@ size_t FibVec::count() const
 
 void FibVec::insert(int value, size_t index)
 {
-    if (count() < capacity())
+    if (index > count())
     {
-        for (size_t i = count(); i > index; i--)
-        {
-            fib[i] = fib[i - 1];
-        }
-        fib[index] = value;
-
-        counter++;
+        throw out_of_range("Invalid index");
     }
-    else if (count() == capacity())
+    else
     {
-        fibNumber = fibNumber + 1;
-        int arraySize = Fibonacci(fibNumber);
-        int *newFib = new int[arraySize];
-        for (size_t i = 0; i < index; i++)
+        if (count() < capacity())
         {
-            newFib[i] = fib[i];
+            for (size_t i = count(); i > index; --i)
+            {
+                fib[i] = fib[i - 1];
+            }
+            fib[index] = value;
         }
-        fib[index] = value;
-        for (size_t i = index + 1; i <= count(); i++)
+        else if (count() == capacity())
         {
-            newFib[i] = fib[i - 1];
+            int fibVal = Fibonacci(fibNumber);
+            while (size_t(fibVal) < count() + 1)
+            {
+                fibNumber = fibNumber + 1;
+                fibVal = Fibonacci(fibNumber);
+            }
+            int arraySize = fibVal;
+            int *newFib = new int[arraySize];
+            for (size_t i = 0; i < index; i++)
+            {
+                newFib[i] = fib[i];
+            }
+            fib[index] = value;
+            for (size_t i = index + 1; i <= count(); i++)
+            {
+                newFib[i] = fib[i - 1];
+            }
+            capacitySize = arraySize;
+            delete[] fib;
+            fib = newFib;
         }
         counter++;
-        capacitySize = arraySize;
-        delete[] fib;
     }
 }
 
@@ -120,6 +131,7 @@ int FibVec::remove(size_t index)
         counter--;
         capacitySize = arraySize;
         delete[] fib;
+        fib = newFib;
         return val;
     }
     else
