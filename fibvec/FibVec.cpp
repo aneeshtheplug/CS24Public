@@ -6,33 +6,71 @@ using namespace std;
 
 FibVec::FibVec()
 {
-    vector<int> fib(1);
+    fib = new int[1];
 }
 
-int FibVec::count() const
+FibVec::~FibVec()
+{
+    delete[] fib;
+}
+
+int Fibonacci(int n)
+{
+    if (n <= 1)
+    {
+        return n;
+    }
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+size_t FibVec::capacity() const
 {
 }
 
-void FibVec::insert(int value, int index)
+size_t FibVec::count() const
 {
+    return sizeof(fib) / sizeof(fib[0]);
 }
 
-int FibVec::lookup(int index) const
+void FibVec::insert(int value, size_t index)
 {
+    int size = count();
+    if (index < size)
+    {
+        for (int i = size; i > index; i--)
+        {
+            fib[i] = fib[i - 1];
+        }
+        fib[index] = value;
+    }
+    counter++;
 }
 
-void FibVec::pop()
+int FibVec::lookup(size_t index) const
 {
+    return fib[index];
+}
+
+int FibVec::pop()
+{
+    if (count() > 0)
+    {
+        int last = fib[counter - 1];
+        counter--;
+        return last;
+    }
 }
 
 void FibVec::push(int value)
 {
+    int size = count();
+    fib[size] = value;
 }
 
-int FibVec::remove(int index)
+int FibVec::remove(size_t index)
 {
 }
 
-FibVec FibVec::slice(int index, int count)
+FibVec FibVec::slice(size_t index, size_t count)
 {
 }

@@ -4,14 +4,23 @@
 
 class FibVec
 {
+private:
+    int *fib;
+    size_t counter = 0;
+    size_t capacity = 1;
+
 public:
     FibVec();
-    int capacity() const;
-    int count() const;
-    void insert(int value, int index);
-    int lookup(int index) const;
-    void pop();
+    ~FibVec();
+    int Fibonnaci(int n);
+    size_t capacity() const;
+    size_t count() const;
+    void insert(int value, size_t index);
+    int lookup(size_t index) const;
+    int pop();
     void push(int value);
-    int remove(int index);
-    FibVec slice(int index, int count);
+    int remove(size_t index);
+    FibVec slice(size_t index, size_t count);
 };
+
+// fibonaci is the number of elemtns space for the memeory
