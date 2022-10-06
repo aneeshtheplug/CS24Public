@@ -63,7 +63,7 @@ void FibVec::insert(int value, size_t index)
             {
                 newFib[i] = fib[i];
             }
-            fib[index] = value;
+            newFib[index] = value;
             for (size_t i = index + 1; i <= count(); i++)
             {
                 newFib[i] = fib[i - 1];
