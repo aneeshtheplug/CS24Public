@@ -122,7 +122,7 @@ int FibVec::remove(size_t index)
             return val;
         }
     }
-    else if (index < count())
+    else
     {
         int val = fib[index];
         for (size_t i = 0; i < (count() - size_t(1)); i++)
@@ -137,9 +137,10 @@ int FibVec::remove(size_t index)
     }
 }
 
-FibVec FibVec::slice(size_t index, size_t count)
+FibVec FibVec::slice(size_t index, size_t count) const
 {
-    index = 5;
-    FibVec fib;
-    return fib;
+    FibVec newfib;
+    newfib.capacitySize = count;
+    newfib.capacitySize = index;
+    return newfib;
 }
