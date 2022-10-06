@@ -11,6 +11,6 @@ int main()
   fibvec.insert(7, 0);
   fibvec.push(9);
 
-  std::cout << fibvec.lookup(2);
+  std::cout << fibvec.lookup(3);
   return 0;
 }

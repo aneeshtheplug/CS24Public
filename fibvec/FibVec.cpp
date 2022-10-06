@@ -78,7 +78,7 @@ void FibVec::insert(int value, size_t index)
 
 int FibVec::lookup(size_t index) const
 {
-    if (index < capacity())
+    if (index < count())
     {
         return fib[index];
     }
