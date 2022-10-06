@@ -136,3 +136,9 @@ int FibVec::remove(size_t index)
         return val;
     }
 }
+
+FibVec FibVec::slice(size_t, size_t) const
+{
+    FibVec newfib;
+    return newfib;
+}
