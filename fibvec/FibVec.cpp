@@ -74,6 +74,7 @@ int FibVec::lookup(size_t index) const
     else
     {
         throw out_of_range("Index is invalid");
+        return -1;
     }
 }
 
@@ -85,6 +86,11 @@ int FibVec::pop()
         counter--;
         return last;
     }
+    else
+    {
+        throw underflow_error("Vector is empty");
+        return -1;
+    }
 }
 
 void FibVec::push(int value)
@@ -94,7 +100,7 @@ void FibVec::push(int value)
 
 int FibVec::remove(size_t index)
 {
-    if ((fibNumber > size_t(2)) && (count() - size_t(1)) < Fibonacci(fibNumber - 2))
+    if ((fibNumber > size_t(2)) && (count() - size_t(1)) < size_t(Fibonacci(fibNumber - 2)))
     {
         int val = fib[index];
         fibNumber = fibNumber - 1;
@@ -133,6 +139,7 @@ int FibVec::remove(size_t index)
 
 FibVec FibVec::slice(size_t index, size_t count)
 {
+    index = 5;
     FibVec fib;
     return fib;
 }
