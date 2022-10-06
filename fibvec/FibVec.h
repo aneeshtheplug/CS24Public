@@ -7,7 +7,8 @@ class FibVec
 private:
     int *fib;
     size_t counter = 0;
-    size_t capacity = 1;
+    size_t capacitySize = 1;
+    size_t fibNumber = 1;
 
 public:
     FibVec();

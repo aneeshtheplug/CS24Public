@@ -25,30 +25,66 @@ int Fibonacci(int n)
 
 size_t FibVec::capacity() const
 {
+    return capacitySize;
 }
 
 size_t FibVec::count() const
 {
-    return sizeof(fib) / sizeof(fib[0]);
+    return counter;
 }
 
 void FibVec::insert(int value, size_t index)
 {
-    int size = count();
-    if (index < size)
+    if (count() < capacity())
     {
-        for (int i = size; i > index; i--)
+        for (int i = counter; i > index; i--)
         {
             fib[i] = fib[i - 1];
         }
         fib[index] = value;
+
+        counter++;
     }
-    counter++;
+    else if (count() == capacity())
+    {
+        fibNumber = fibNumber + 1;
+        int arraySize = Fibonacci(fibNumber);
+        int *newFib = new int[arraySize];
+        for (int i = 0; i <= count(); i++)
+        {
+            if (i == index)
+            {
+                newFib[i] = value;
+            }
+            else if (i < index)
+            {
+                newFib[i] = fib[i];
+            }
+            else
+            {
+                newFib[i] = fib[i - 1];
+            }
+            counter++;
+            capacitySize = arraySize;
+            delete[] fib;
+        }
+    }
+    else
+    {
+        throw out_of_range("Invalid index");
+    }
 }
 
 int FibVec::lookup(size_t index) const
 {
-    return fib[index];
+    if (index < capacity())
+    {
+        return fib[index];
+    }
+    else
+    {
+        throw out_of_range("Index is invalid");
+    }
 }
 
 int FibVec::pop()
@@ -59,12 +95,15 @@ int FibVec::pop()
         counter--;
         return last;
     }
+    else
+    {
+        throw underflow_error("Vector is emmpty");
+    }
 }
 
 void FibVec::push(int value)
 {
-    int size = count();
-    fib[size] = value;
+    fib[counter] = value;
 }
 
 int FibVec::remove(size_t index)
