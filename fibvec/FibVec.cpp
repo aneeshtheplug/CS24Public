@@ -63,10 +63,6 @@ void FibVec::insert(int value, size_t index)
         capacitySize = arraySize;
         delete[] fib;
     }
-    else
-    {
-        throw out_of_range("Invalid index");
-    }
 }
 
 int FibVec::lookup(size_t index) const
@@ -88,10 +84,6 @@ int FibVec::pop()
         int last = fib[counter - 1];
         counter--;
         return last;
-    }
-    else
-    {
-        throw underflow_error("Vector is empty");
     }
 }
 
@@ -137,12 +129,10 @@ int FibVec::remove(size_t index)
             return val;
         }
     }
-    else
-    {
-        throw out_of_range("Invalid index");
-    }
 }
 
 FibVec FibVec::slice(size_t index, size_t count)
 {
+    FibVec fib;
+    return fib;
 }
