@@ -106,7 +106,30 @@ int FibVec::pop()
 
 void FibVec::push(int value)
 {
-    fib[counter] = value;
+    if (count() < capacity())
+    {
+        fib[counter] = value;
+    }
+    else if (count() == capacity())
+    {
+        int fibVal = Fibonacci(fibNumber);
+        while (size_t(fibVal) < count() + 1)
+        {
+            fibNumber = fibNumber + 1;
+            fibVal = Fibonacci(fibNumber);
+        }
+        int arraySize = fibVal;
+        int *newFib = new int[arraySize];
+        for (size_t i = 0; i < count(); i++)
+        {
+            newFib[i] = fib[i];
+        }
+        newFib[counter] = value;
+        capacitySize = arraySize;
+        delete[] fib;
+        fib = newFib;
+    }
+    counter++;
 }
 
 int FibVec::remove(size_t index)

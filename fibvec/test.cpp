@@ -9,8 +9,8 @@ int main()
   FibVec fibvec;
   fibvec.insert(5, 0);
   fibvec.insert(7, 0);
-  fibvec.lookup(0);
+  fibvec.push(9);
 
-  std::cout << fibvec.lookup(0);
+  std::cout << fibvec.lookup(2);
   return 0;
 }
