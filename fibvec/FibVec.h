@@ -23,5 +23,3 @@ public:
     int remove(size_t index);
     FibVec slice(size_t index, size_t count);
 };
-
-// fibonaci is the number of elemtns space for the memeory

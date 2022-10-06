@@ -97,7 +97,7 @@ int FibVec::pop()
     }
     else
     {
-        throw underflow_error("Vector is emmpty");
+        throw underflow_error("Vector is empty");
     }
 }
 
