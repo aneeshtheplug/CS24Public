@@ -134,41 +134,48 @@ void FibVec::push(int value)
 
 int FibVec::remove(size_t index)
 {
-    if ((fibNumber > size_t(2)) && (count() - size_t(1)) < size_t(Fibonacci(fibNumber - 2)))
+    if (index >= count())
     {
-        int val = fib[index];
-        fibNumber = fibNumber - 1;
-        int arraySize = Fibonacci(fibNumber);
-        int *newFib = new int[arraySize];
-        for (size_t i = 0; i < (count() - size_t(1)); i++)
-        {
-            if (i < index)
-            {
-                newFib[i] = fib[i];
-            }
-            else
-            {
-                newFib[i] = fib[i + 1];
-            }
-        }
-        counter--;
-        capacitySize = arraySize;
-        delete[] fib;
-        fib = newFib;
-        return val;
+        throw out_of_range("Index invalid");
     }
     else
     {
-        int val = fib[index];
-        for (size_t i = 0; i < (count() - size_t(1)); i++)
+        if ((fibNumber > size_t(2)) && (count() - size_t(1)) < size_t(Fibonacci(fibNumber - 2)))
         {
-            if (i >= index)
+            int val = fib[index];
+            fibNumber = fibNumber - 1;
+            int arraySize = Fibonacci(fibNumber);
+            int *newFib = new int[arraySize];
+            for (size_t i = 0; i < (count() - size_t(1)); i++)
             {
-                fib[i] = fib[i + 1];
+                if (i < index)
+                {
+                    newFib[i] = fib[i];
+                }
+                else
+                {
+                    newFib[i] = fib[i + 1];
+                }
             }
+            counter--;
+            capacitySize = arraySize;
+            delete[] fib;
+            fib = newFib;
+            return val;
         }
-        counter--;
-        return val;
+        else
+        {
+            int val = fib[index];
+            for (size_t i = 0; i < (count() - size_t(1)); i++)
+            {
+                if (i >= index)
+                {
+                    fib[i] = fib[i + 1];
+                }
+            }
+            counter--;
+            return val;
+        }
     }
 }
 
