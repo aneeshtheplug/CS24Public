@@ -116,11 +116,11 @@ int FibVec::remove(size_t index)
             {
                 newFib[i] = fib[i + 1];
             }
-            counter--;
-            capacitySize = arraySize;
-            delete[] fib;
-            return val;
         }
+        counter--;
+        capacitySize = arraySize;
+        delete[] fib;
+        return val;
     }
     else
     {
@@ -131,16 +131,8 @@ int FibVec::remove(size_t index)
             {
                 fib[i] = fib[i + 1];
             }
-            counter--;
-            return val;
         }
+        counter--;
+        return val;
     }
-}
-
-FibVec FibVec::slice(size_t index, size_t count) const
-{
-    FibVec newfib;
-    newfib.capacitySize = count;
-    newfib.capacitySize = index;
-    return newfib;
 }
