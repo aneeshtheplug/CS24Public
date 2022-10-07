@@ -96,7 +96,7 @@ int FibVec::pop()
         int last = fib[counter - 1];
         if (size_t(Fibonacci(fibNumber - 1)) > count() - 1)
         {
-            while (size_t(Fibonacci(fibNumber - 1) > count() - 1))
+            while (size_t(Fibonacci(fibNumber - 1)) > count() - 1)
             {
                 fibNumber = fibNumber - 1;
             }
