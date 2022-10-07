@@ -94,23 +94,8 @@ int FibVec::pop()
     if (count() > 0)
     {
         int last = fib[counter - 1];
-        if (size_t(Fibonacci(fibNumber - 1)) > count() - 1)
-        {
-            while (size_t(Fibonacci(fibNumber - 1)) > count() - 1)
-            {
-                fibNumber = fibNumber - 1;
-            }
-            int arraySize = Fibonacci(fibNumber);
-            int *newFib = new int[arraySize];
-            for (size_t i = 0; i < count(); i++)
-            {
-                newFib[i] = fib[i];
-            }
-            capacitySize = arraySize;
-            delete[] fib;
-            fib = newFib;
-        }
-        counter--;
+        remove(counter - 1);
+        --counter;
         return last;
     }
     else
