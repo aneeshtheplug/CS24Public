@@ -91,7 +91,7 @@ int FibVec::lookup(size_t index) const
 
 int FibVec::pop()
 {
-    if (count() > 0)
+    if (capacity() > 0)
     {
         int last = fib[counter - 1];
         counter--;
