@@ -21,5 +21,4 @@ public:
     int pop();
     void push(int value);
     int remove(size_t index);
-    FibVec slice(size_t, size_t) const;
 };
