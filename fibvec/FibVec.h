@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstddef>
-#include <vector>
 
 class FibVec
 {
