@@ -67,22 +67,20 @@ void printReverse(Node *head)
 }
 void List::insert(const std::string &value) // question about namespace std
 {
-    Node *newNode;
+    Node *newNode = new Node();
     newNode->data = value;
-    if (head == NULL)
+    if (head == NULL || head->data > newNode->data)
     {
-        newNode->next = NULL;
+        newNode->next = head;
         head = newNode;
     }
     Node *current = head;
-    Node *prev = new Node();
     while (current->next != NULL && current->next->data < newNode->data)
     {
         current = current->next;
-        prev = current;
     }
-    prev->next = newNode;
     newNode->next = current->next;
+    current->next = newNode;
 }
 
 void List::print(bool reverse) const
@@ -172,7 +170,7 @@ string List::remove(size_t index)
         }
         else
         {
-            Node *prev = new Node();
+            Node *prev;
             size_t target = 0;
             while (target <= index)
             {
