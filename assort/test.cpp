@@ -10,8 +10,8 @@ int main()
   list.insert("adam");
   list.insert("bella");
   list.insert("abigail");
-  list.remove(1);
-  std::cout << list.lookup(1);
+
+  std::cout << list.remove(2);
 
   return 0;
 }
