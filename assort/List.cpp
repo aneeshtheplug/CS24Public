@@ -69,18 +69,26 @@ void List::insert(const std::string &value) // question about namespace std
 {
     Node *newNode = new Node();
     newNode->data = value;
-    if (head == NULL || head->data > newNode->data)
+    if (head == NULL)
     {
         newNode->next = NULL;
         head = newNode;
     }
-    Node *current = head;
-    while (current->next != NULL && current->next->data < newNode->data)
+    else if (head->data > newNode->data)
     {
-        current = current->next;
+        newNode->next = head;
+        head = newNode;
     }
-    newNode->next = current->next;
-    current->next = newNode;
+    else
+    {
+        Node *current = head;
+        while (current->next != NULL && current->next->data < newNode->data)
+        {
+            current = current->next;
+        }
+        newNode->next = current->next;
+        current->next = newNode;
+    }
 }
 
 void List::print(bool reverse) const
