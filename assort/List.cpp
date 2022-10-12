@@ -71,7 +71,7 @@ void List::insert(const std::string &value) // question about namespace std
     newNode->data = value;
     if (head == NULL || head->data > newNode->data)
     {
-        newNode->next = head;
+        newNode->next = NULL;
         head = newNode;
     }
     Node *current = head;
