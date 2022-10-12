@@ -75,7 +75,7 @@ void List::insert(const std::string &value) // question about namespace std
         head = newNode;
     }
     Node *current = head;
-    Node *prev = NULL;
+    Node *prev = new Node();
     while (current->next != NULL && current->next->data < newNode->data)
     {
         current = current->next;
@@ -172,7 +172,7 @@ string List::remove(size_t index)
         }
         else
         {
-            Node *prev = NULL;
+            Node *prev = new Node();
             size_t target = 0;
             while (target <= index)
             {
