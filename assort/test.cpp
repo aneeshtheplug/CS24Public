@@ -4,10 +4,11 @@
 // Use this file to test your List class!
 // This file won't be graded - do whatever you want.
 
-int main() {
+int main()
+{
   List list;
-
-  std::cout << "This program doesn't do anything interesting yet...\n";
+  list.insert("adam");
+  std::cout << list.lookup(0);
 
   return 0;
 }

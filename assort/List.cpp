@@ -8,9 +8,9 @@ List::List()
 
 List::List(const List &other)
 {
-    if (other.head == NULL)
+    if (other.head == nullptr)
     {
-        head = NULL;
+        head = nullptr;
     }
     else
     {
@@ -20,7 +20,7 @@ List::List(const List &other)
         head = startNode;
 
         Node *current = head;
-        while (old->next != NULL)
+        while (old->next != nullptr)
         {
             Node *added = new Node();
             added->data = old->next->data;
@@ -28,36 +28,36 @@ List::List(const List &other)
             current = added;
             old = old->next;
         }
-        current->next = NULL;
+        current->next = nullptr;
     }
 }
 
 List::List(List &&other)
 {
     head = other.head;
-    other.head = NULL;
+    other.head = nullptr;
 }
 
 List::~List()
 {
     Node *current = head;
-    if (head == NULL)
+    if (head == nullptr)
     {
     }
     else
     {
-        while (current != NULL)
+        while (current != nullptr)
         {
             delete current;
             current = current->next;
         }
     }
-    head = NULL;
+    head = nullptr;
 }
 
 void printReverse(Node *head)
 {
-    if (head->next == NULL)
+    if (head->next == nullptr)
     {
         return;
     }
@@ -69,14 +69,14 @@ void List::insert(const std::string &value) // question about namespace std
 {
     Node *newNode = new Node();
     newNode->data = value;
-    if (head == NULL)
+    if (head == nullptr)
     {
-        newNode->next = NULL;
+        newNode->next = nullptr;
         head = newNode;
     }
     Node *current = head;
     Node *prev = new Node();
-    while (current->next != NULL && current->next->data < newNode->data)
+    while (current->next != nullptr && current->next->data < newNode->data)
     {
         current = current->next;
         prev = current;
@@ -91,9 +91,9 @@ void List::print(bool reverse) const
     if (reverse == false)
     {
         Node *current = head;
-        while (current != NULL)
+        while (current != nullptr)
         {
-            if (current->next != NULL)
+            if (current->next != nullptr)
             {
                 cout << current->data << ", ";
                 current = current->next;
@@ -107,14 +107,14 @@ void List::print(bool reverse) const
     }
     else
     {
-        if (head == NULL)
+        if (head == nullptr)
         {
         }
         else
         {
             printReverse(head);
             Node *current = head;
-            while (current->next != NULL)
+            while (current->next != nullptr)
             {
                 current = current->next;
             }
@@ -129,7 +129,7 @@ size_t List::count() const
 {
     Node *current = head;
     size_t counter = 0;
-    while (current != NULL)
+    while (current != nullptr)
     {
         counter = counter + 1;
         current = current->next;
@@ -180,13 +180,13 @@ string List::remove(size_t index)
                 current = current->next;
                 target = target + 1;
             }
-            if (current->next != NULL)
+            if (current->next != nullptr)
             {
                 prev->next = current->next;
             }
             else
             {
-                prev->next = NULL;
+                prev->next = nullptr;
             }
             return current->data;
         }
