@@ -121,12 +121,7 @@ void List::print(bool reverse) const
         else
         {
             printReverse(head);
-            Node *current = head;
-            while (current->next != NULL)
-            {
-                current = current->next;
-            }
-            cout << current->data;
+            cout << head->data;
         }
     }
     cout << "]";
