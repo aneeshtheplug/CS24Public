@@ -192,3 +192,12 @@ string List::remove(size_t index)
         }
     }
 }
+
+size_t List::remove(const string &value)
+{
+    if (head->data == value)
+    {
+        return size_t(5);
+    }
+    return size_t(5);
+}
