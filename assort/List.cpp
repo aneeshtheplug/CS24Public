@@ -4,6 +4,7 @@ using namespace std;
 
 List::List()
 {
+    head = NULL;
 }
 
 List::List(const List &other)
