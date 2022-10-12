@@ -2,6 +2,10 @@
 #include "List.h"
 using namespace std;
 
+List::List()
+{
+}
+
 List::List(const List &other)
 {
     if (other.head == NULL)
@@ -14,6 +18,7 @@ List::List(const List &other)
         Node *startNode = new Node();
         startNode->data = old->data;
         head = startNode;
+
         Node *current = head;
         while (old->next != NULL)
         {
@@ -33,14 +38,21 @@ List::List(List &&other)
     other.head = NULL;
 }
 
-List::List()
+List::~List()
 {
     Node *current = head;
-    while (current != NULL)
+    if (head == NULL)
     {
-        delete current;
-        current = current->next;
     }
+    else
+    {
+        while (current != NULL)
+        {
+            delete current;
+            current = current->next;
+        }
+    }
+    head = NULL;
 }
 
 void printReverse(Node *head)
@@ -73,7 +85,7 @@ void List::insert(const std::string &value) // question about namespace std
     newNode->next = current->next;
 }
 
-void List::print(bool reverse = false) const
+void List::print(bool reverse) const
 {
     cout << "[";
     if (reverse == false)
@@ -125,7 +137,7 @@ size_t List::count() const
     return counter;
 }
 
-string List::lookup(size_t index) const
+const string &List::lookup(size_t index) const
 {
     if (index >= count())
     {
@@ -153,7 +165,7 @@ string List::remove(size_t index)
     else
     {
         Node *current = head;
-        if (index = 0)
+        if (index == 0)
         {
             head = current->next;
             return current->data;
