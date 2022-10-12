@@ -59,7 +59,7 @@ List::~List()
 
 void printReverse(Node *head)
 {
-    if (head->next == NULL)
+    if (head == NULL)
     {
         return;
     }
@@ -120,7 +120,7 @@ void List::print(bool reverse) const
         }
         else
         {
-            printReverse(head);
+            printReverse(head->next);
             cout << head->data;
         }
     }
