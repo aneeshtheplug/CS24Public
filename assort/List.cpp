@@ -50,8 +50,8 @@ List::~List()
         while (current != NULL)
         {
             Node *temp = current;
-            delete current;
-            current = temp->next;
+            delete temp;
+            current = current->next;
         }
         head = NULL;
     }

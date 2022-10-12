@@ -10,7 +10,7 @@ int main()
   list.insert("adam");
   list.insert("bella");
   list.insert("abigail");
-  std::cout << list.lookup(2);
+  std::cout << list.lookup(1);
 
   return 0;
 }
