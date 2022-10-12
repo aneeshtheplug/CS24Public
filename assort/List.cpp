@@ -52,7 +52,7 @@ List::~List()
             Node *temp = current;
             current = temp->next;
             delete temp;
-                }
+        }
         head = NULL;
     }
 }
