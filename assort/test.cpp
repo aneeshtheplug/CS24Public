@@ -8,7 +8,9 @@ int main()
 {
   List list;
   list.insert("adam");
-  std::cout << list.lookup(0);
+  list.insert("bella");
+  list.insert("abigail");
+  std::cout << list.lookup(2);
 
   return 0;
 }

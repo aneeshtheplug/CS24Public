@@ -49,11 +49,12 @@ List::~List()
     {
         while (current != NULL)
         {
+            Node *temp = current;
             delete current;
-            current = current->next;
+            current = temp->next;
         }
+        head = NULL;
     }
-    head = NULL;
 }
 
 void printReverse(Node *head)
