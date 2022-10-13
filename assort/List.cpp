@@ -185,7 +185,9 @@ string List::remove(size_t index)
             {
                 prev->next = NULL;
             }
-            return current->data;
+            string val = current->data;
+            delete current;
+            return val;
         }
     }
 }
