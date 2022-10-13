@@ -175,7 +175,7 @@ string List::remove(size_t index)
         }
         else
         {
-            Node *prev = new Node();
+            Node *prev;
             size_t target = 0;
             while (target < index)
             {

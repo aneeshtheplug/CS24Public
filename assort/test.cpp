@@ -11,7 +11,8 @@ int main()
   list.insert("bella");
   list.insert("abigail");
 
-  std::cout << list.remove(2);
+  std::cout << list.remove(1);
+  std::cout << list.remove(1);
 
   return 0;
 }
