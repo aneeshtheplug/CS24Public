@@ -196,9 +196,45 @@ string List::remove(size_t index)
 
 size_t List::remove(const string &value)
 {
-    if (head->data == value)
+    size_t counter = 0;
+    size_t index = 0;
+    Node *current = head;
+    if (head == NULL)
     {
-        return size_t(5);
+        return counter;
     }
-    return size_t(5);
+    Node *prev;
+    while (current->next != NULL)
+    {
+        if (current->data == value)
+        {
+            if (index == 0)
+            {
+                head = current->next;
+                delete current;
+                current = head;
+                counter = counter + 1;
+            }
+            else
+            {
+                prev->next = current->next;
+                delete current;
+                current = current->next;
+                counter = counter + 1;
+            }
+        }
+        else
+        {
+            index = index + 1;
+            prev = current;
+            current = current->next;
+        }
+    }
+    if (current->data == value)
+    {
+        prev->next = NULL;
+        delete current;
+        counter = counter + 1;
+    }
+    return counter;
 }

@@ -8,11 +8,10 @@ int main()
 {
   List list;
   list.insert("adam");
-  list.insert("bella");
+  list.insert("adam");
   list.insert("abigail");
 
-  std::cout << list.remove(1);
-  std::cout << list.remove(1);
+  std::cout << list.remove("adam");
 
   return 0;
 }
