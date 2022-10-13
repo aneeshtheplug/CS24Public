@@ -191,7 +191,10 @@ string List::remove(size_t index)
             {
                 prev->next = NULL;
             }
-            return current->data;
+            Node *temp = new Node();
+            temp->data = current->data;
+            delete current;
+            return temp->data;
         }
     }
 }
