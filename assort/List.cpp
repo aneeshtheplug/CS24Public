@@ -42,19 +42,13 @@ List::List(List &&other)
 List::~List()
 {
     Node *current = head;
-    if (head == NULL)
+    while (current != NULL)
     {
+        Node *temp = current->next;
+        delete current;
+        current = temp;
     }
-    else
-    {
-        while (current != NULL)
-        {
-            Node *temp = current;
-            current = temp->next;
-            delete temp;
-        }
-        head = NULL;
-    }
+    head = NULL;
 }
 
 void printReverse(Node *head)
@@ -191,10 +185,7 @@ string List::remove(size_t index)
             {
                 prev->next = NULL;
             }
-            Node *temp = new Node();
-            temp->data = current->data;
-            delete current;
-            return temp->data;
+            return current->data;
         }
     }
 }
