@@ -165,7 +165,9 @@ string List::remove(size_t index)
         if (index == 0)
         {
             head = current->next;
-            return current->data;
+            string val = current->data;
+            delete current;
+            return val;
         }
         else
         {
