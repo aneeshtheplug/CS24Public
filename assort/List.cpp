@@ -214,10 +214,6 @@ size_t List::remove(const string &value)
                 delete current;
                 current = head;
                 counter = counter + 1;
-                if (current == NULL)
-                {
-                    break;
-                }
             }
             else
             {
@@ -236,9 +232,18 @@ size_t List::remove(const string &value)
     }
     if (current->data == value)
     {
-        prev->next = NULL;
-        delete current;
-        counter = counter + 1;
+        if (index == 0)
+        {
+            delete current;
+            head = NULL;
+            counter = counter + 1;
+        }
+        else
+        {
+            prev->next = NULL;
+            delete current;
+            counter = counter + 1;
+        }
     }
     return counter;
 }

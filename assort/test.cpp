@@ -9,7 +9,6 @@ int main()
   List list;
   list.insert("adam");
   list.insert("adam");
-  list.insert("abigail");
 
   std::cout << list.remove("adam");
 
