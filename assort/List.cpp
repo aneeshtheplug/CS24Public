@@ -219,7 +219,7 @@ size_t List::remove(const string &value)
             {
                 prev->next = current->next;
                 delete current;
-                current = current->next;
+                current = prev->next;
                 counter = counter + 1;
             }
         }
