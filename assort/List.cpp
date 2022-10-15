@@ -214,6 +214,10 @@ size_t List::remove(const string &value)
                 delete current;
                 current = head;
                 counter = counter + 1;
+                if (current == NULL)
+                {
+                    break;
+                }
             }
             else
             {
