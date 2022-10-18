@@ -1,5 +1,6 @@
 #include "Set.h"
 using namespace std;
+#include <iostream>
 
 Set::Set()
 {
@@ -114,25 +115,39 @@ bool Set::contains(const string &value) const
     }
     return false;
 }
-/*
+
+Node *findSuccessor(Node *curr)
+{
+    if (curr->right != NULL)
+    {
+        curr = curr->right;
+        while (curr != NULL)
+        {
+            if (curr->left != NULL)
+            {
+                curr = curr->left;
+            }
+        }
+        return curr;
+    }
+    else
+    {
+        return curr->right;
+    }
+}
+
 size_t Set::remove(const string &value)
 {
     Node *current = mRoot;
-    Node *prev = NULL;
-    if (current == NULL)
-    {
-    }
     while (current != NULL)
     {
         if (value < current->data)
         {
             current = current->left;
-            prev = current;
         }
         else if (value > current->data)
         {
             current = current->right;
-            prev = current;
         }
         else
         {
@@ -140,7 +155,22 @@ size_t Set::remove(const string &value)
             {
                 delete current;
             }
+            else if (current->right == NULL)
+            {
+                Node *temp = current->left;
+                delete current;
+                current = temp;
+            }
+            else if (current->left == NULL)
+            {
+                Node *temp = current->right;
+                delete current;
+                current = temp;
+            }
+            else
+            {
+                Node *succ = findSuccessor(current);
+            }
         }
     }
 }
-*/
