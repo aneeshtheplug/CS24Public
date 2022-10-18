@@ -7,6 +7,11 @@ Set::Set()
     mRoot = NULL;
 }
 
+Set::Set(Set &&other)
+{
+    mRoot = other.mRoot;
+    other.mRoot = NULL;
+}
 Set::~Set()
 {
 }
@@ -42,6 +47,7 @@ size_t Set::insert(const string &value)
             }
             else
             {
+                return 0;
             }
         }
         if (value < prev->data)
@@ -116,26 +122,14 @@ bool Set::contains(const string &value) const
     return false;
 }
 
-Node *findSuccessor(Node *curr)
+Node *findSucc(Node *current)
 {
-    if (curr->right != NULL)
+    while (current && current->left != NULL)
     {
-        curr = curr->right;
-        while (curr != NULL)
-        {
-            if (curr->left != NULL)
-            {
-                curr = curr->left;
-            }
-        }
-        return curr;
+        current = current->left;
     }
-    else
-    {
-        return curr->right;
-    }
+    return current;
 }
-
 size_t Set::remove(const string &value)
 {
     Node *current = mRoot;
@@ -169,8 +163,13 @@ size_t Set::remove(const string &value)
             }
             else
             {
-                Node *succ = findSuccessor(current);
+                Node *temp = findSucc(current->right);
+                string tempData = temp->data;
+                remove(temp->data);
+                current->data = tempData;
+                return 1;
             }
         }
     }
+    return 0;
 }

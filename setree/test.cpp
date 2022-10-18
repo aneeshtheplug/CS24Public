@@ -12,7 +12,7 @@ int main()
   set.insert("Jack");
   set.insert("Adam");
   set.insert("Bob");
-  cout << set.clear();
+  set.print();
 
   return 0;
 }
