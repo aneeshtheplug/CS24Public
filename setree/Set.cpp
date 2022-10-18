@@ -57,15 +57,15 @@ size_t Set::insert(const string &value)
 
 size_t postOrderDelete(Node *head)
 {
-    size_t counter = 0;
-    if (head != NULL)
+    if (head == NULL)
     {
-        postOrderDelete(head->left);
-        postOrderDelete(head->right);
-        delete head;
-        counter = counter + 1;
+        return 0;
     }
-    return counter;
+    else
+    {
+        delete head;
+        return 1 + postOrderDelete(head->left) + postOrderDelete(head->right);
+    }
 }
 
 size_t Set::clear()
