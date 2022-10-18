@@ -1,13 +1,18 @@
 #include "Set.h"
 #include <iostream>
+using namespace std;
 
 // Use this file to test your Set class.
 // This file won't be graded - do whatever you want.
 
-int main() {
+int main()
+{
   Set set;
 
-  std::cout << "This program doesn't do anything interesting yet...\n";
+  set.insert("Jack");
+  set.insert("Adam");
+  set.insert("Bob");
+  cout << set.count();
 
   return 0;
 }

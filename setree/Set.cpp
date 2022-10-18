@@ -3,9 +3,12 @@ using namespace std;
 
 Set::Set()
 {
-    Node *mRoot = NULL;
+    mRoot = NULL;
 }
 
+Set::~Set()
+{
+}
 size_t Set::insert(const string &value)
 {
     if (mRoot == NULL)
@@ -38,7 +41,6 @@ size_t Set::insert(const string &value)
             }
             else
             {
-                return 0;
             }
         }
         if (value < prev->data)
@@ -53,10 +55,6 @@ size_t Set::insert(const string &value)
     }
 }
 
-size_t Set::clear()
-{
-    postOrderDelete(mRoot);
-}
 size_t postOrderDelete(Node *head)
 {
     size_t counter = 0;
@@ -70,21 +68,26 @@ size_t postOrderDelete(Node *head)
     return counter;
 }
 
-size_t Set::count() const
+size_t Set::clear()
 {
-    preorder(mRoot);
+    return postOrderDelete(mRoot);
 }
 
 size_t preorder(Node *head)
 {
-    size_t counter = 0;
-    if (head != NULL)
+    if (head == NULL)
     {
-        counter = counter + 1;
-        preorder(head->left);
-        preorder(head->right);
+        return 0;
     }
-    return counter;
+    else
+    {
+        return 1 + preorder(head->left) + preorder(head->right);
+    }
+}
+
+size_t Set::count() const
+{
+    return preorder(mRoot);
 }
 
 bool Set::contains(const string &value) const
@@ -111,7 +114,7 @@ bool Set::contains(const string &value) const
     }
     return false;
 }
-
+/*
 size_t Set::remove(const string &value)
 {
     Node *current = mRoot;
@@ -140,3 +143,4 @@ size_t Set::remove(const string &value)
         }
     }
 }
+*/
