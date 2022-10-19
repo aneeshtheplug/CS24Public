@@ -232,5 +232,5 @@ size_t Set::remove(const string &value)
 
 const string &Set::lookup(size_t n) const
 {
-    return "bill";
+    return mRoot->data;
 }
