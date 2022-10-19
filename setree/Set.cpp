@@ -22,49 +22,41 @@ Set::Set(const Set &other)
 
 size_t Set::insert(const string &value)
 {
-    if (mRoot == NULL)
+    Node *newNode = new Node();
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    Node *current = mRoot;
+    Node *prev = NULL;
+    while (current != NULL)
     {
-        Node *newNode = new Node();
-        newNode->data = value;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        mRoot = newNode;
-        return 1;
-    }
-    else
-    {
-        Node *newNode = new Node();
-        newNode->data = value;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        Node *current = mRoot;
-        Node *prev = NULL;
-        while (current != NULL)
+        prev = current;
+        if (value < current->data)
         {
-            prev = current;
-            if (value < current->data)
-            {
-                current = current->left;
-            }
-            else if (value > current->data)
-            {
-                current = current->right;
-            }
-            else
-            {
-                return 0;
-            }
+            current = current->left;
         }
-        if (value < prev->data)
+        else if (value > current->data)
         {
-            prev->left = newNode;
+            current = current->right;
         }
         else
         {
-            prev->right = newNode;
+            return 0;
         }
-        return 1;
     }
+    if (prev == NULL)
+    {
+        mRoot = newNode;
+    }
+    else if (value < prev->data)
+    {
+        prev->left = newNode;
+    }
+    else
+    {
+        prev->right = newNode;
+    }
+    return 1;
 }
 
 void postOrderDelete(Node *head)
