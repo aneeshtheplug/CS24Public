@@ -15,6 +15,11 @@ Set::Set(Set &&other)
 Set::~Set()
 {
 }
+
+Set::Set(const Set &other)
+{
+}
+
 size_t Set::insert(const string &value)
 {
     if (mRoot == NULL)
