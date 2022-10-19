@@ -229,3 +229,8 @@ size_t Set::remove(const string &value)
         return 1;
     }
 }
+
+const string &Set::lookup(size_t n) const
+{
+    return "bill";
+}
