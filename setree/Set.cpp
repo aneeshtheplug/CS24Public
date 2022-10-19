@@ -62,22 +62,26 @@ size_t Set::insert(const string &value)
     }
 }
 
-size_t postOrderDelete(Node *head)
+void postOrderDelete(Node *head)
 {
     if (head == NULL)
     {
-        return 0;
+        return;
     }
     else
     {
+        postOrderDelete(head->left);
+        postOrderDelete(head->right);
         delete head;
-        return 1 + postOrderDelete(head->left) + postOrderDelete(head->right);
     }
 }
 
 size_t Set::clear()
 {
-    return postOrderDelete(mRoot);
+    size_t total = count();
+    postOrderDelete(mRoot);
+    mRoot = NULL;
+    return total;
 }
 
 size_t preorder(Node *head)
@@ -101,15 +105,27 @@ void helpPrint(Node *head)
 {
     if (head == NULL)
     {
-        return;
+        cout << "-";
     }
-    helpPrint(head->left);
-    cout << head->data << " ";
-    helpPrint(head->right);
+    else if (head->right == NULL && head->left == NULL)
+    {
+        cout << head->data;
+    }
+    else if (head->right || head->left)
+    {
+        cout << "(";
+        helpPrint(head->left);
+        cout << " ";
+        cout << head->data;
+        cout << " ";
+        helpPrint(head->right);
+        cout << ")";
+    }
 }
 void Set::print() const
 {
     helpPrint(mRoot);
+    cout << endl;
 }
 
 bool Set::contains(const string &value) const
@@ -192,7 +208,7 @@ Node *removeHelp(Node *current, const string &value)
 
 size_t Set::remove(const string &value)
 {
-    if (mRoot == NULL)
+    if (contains(value) == false)
     {
         return 0;
     }
@@ -207,4 +223,8 @@ size_t Set::remove(const string &value)
     {
         return 1;
     }
+}
+
+const string &Set::lookup(size_t n) const
+{
 }

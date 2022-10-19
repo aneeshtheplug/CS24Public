@@ -9,16 +9,13 @@ int main()
 {
   Set set;
 
-  set.insert("Jack");
-  cout << set.count() << endl;
-  set.insert("Bob");
-  set.insert("Adam");
-  set.insert("Zach");
-  set.insert("George");
-  set.print();
-  cout << endl;
-  set.remove("George");
-  set.print();
+  set.insert("d");
+  set.insert("b");
+  set.insert("e");
+  set.insert("a");
+  set.insert("c");
+  set.insert("f");
+  set.lookup(4);
 
   return 0;
 }
