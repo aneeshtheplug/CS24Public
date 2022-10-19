@@ -97,6 +97,21 @@ size_t Set::count() const
     return preorder(mRoot);
 }
 
+void helpPrint(Node *head)
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    helpPrint(head->left);
+    cout << head->data << " ";
+    helpPrint(head->right);
+}
+void Set::print() const
+{
+    helpPrint(mRoot);
+}
+
 bool Set::contains(const string &value) const
 {
     Node *current = mRoot;
@@ -130,46 +145,66 @@ Node *findSucc(Node *current)
     }
     return current;
 }
-size_t Set::remove(const string &value)
+
+Node *removeHelp(Node *current, const string &value)
 {
-    Node *current = mRoot;
-    while (current != NULL)
+    if (current == NULL)
     {
-        if (value < current->data)
+        return 0;
+    }
+    else if (value < current->data)
+    {
+        current->left = removeHelp(current->left, value);
+    }
+    else if (value > current->data)
+    {
+        current->right = removeHelp(current->right, value);
+    }
+
+    else
+    {
+        if (current->right == NULL && current->left == NULL)
         {
-            current = current->left;
+            delete current;
+            current = NULL;
         }
-        else if (value > current->data)
+        else if (current->right == NULL)
         {
+            Node *temp = current;
+            current = current->left;
+            delete temp;
+        }
+        else if (current->left == NULL)
+        {
+            Node *temp = current;
             current = current->right;
+            delete temp;
         }
         else
         {
-            if (current->right == NULL && current->left == NULL)
-            {
-                delete current;
-            }
-            else if (current->right == NULL)
-            {
-                Node *temp = current->left;
-                delete current;
-                current = temp;
-            }
-            else if (current->left == NULL)
-            {
-                Node *temp = current->right;
-                delete current;
-                current = temp;
-            }
-            else
-            {
-                Node *temp = findSucc(current->right);
-                string tempData = temp->data;
-                remove(temp->data);
-                current->data = tempData;
-                return 1;
-            }
+            Node *temp = findSucc(current->right);
+            current->data = temp->data;
+            current->right = removeHelp(current->right, temp->data);
         }
     }
-    return 0;
+    return current;
+}
+
+size_t Set::remove(const string &value)
+{
+    if (mRoot == NULL)
+    {
+        return 0;
+    }
+    size_t prevCount = count();
+    removeHelp(mRoot, value);
+    size_t afterCount = count();
+    if (prevCount == afterCount)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }

@@ -10,8 +10,14 @@ int main()
   Set set;
 
   set.insert("Jack");
-  set.insert("Adam");
+  cout << set.count() << endl;
   set.insert("Bob");
+  set.insert("Adam");
+  set.insert("Zach");
+  set.insert("George");
+  set.print();
+  cout << endl;
+  set.remove("George");
   set.print();
 
   return 0;
