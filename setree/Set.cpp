@@ -30,6 +30,7 @@ void destruct(Node *head)
 Set::~Set()
 {
     destruct(mRoot);
+    mRoot = NULL;
 }
 
 Node *copyTree(Node *head)
