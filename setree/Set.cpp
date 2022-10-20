@@ -241,10 +241,6 @@ Node *removeHelp(Node *current, const string &value)
 
 size_t Set::remove(const string &value)
 {
-    if (contains(value) == false)
-    {
-        return 0;
-    }
     size_t prevCount = count();
     removeHelp(mRoot, value);
     size_t afterCount = count();
