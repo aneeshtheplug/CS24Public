@@ -15,8 +15,10 @@ int main()
   set.insert("a");
   set.insert("c");
   set.insert("f");
-  cout << set.remove("c");
+  cout << set.count();
+  cout << set.remove("b");
   set.print();
+  cout << set.count();
 
   return 0;
 }

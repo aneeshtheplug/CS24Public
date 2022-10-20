@@ -233,7 +233,7 @@ Node *removeHelp(Node *current, const string &value)
         {
             Node *temp = findSucc(current->right);
             current->data = temp->data;
-            current->right = removeHelp(current->right, temp->data);
+            current->right = removeHelp(current->right, current->data);
         }
     }
     return current;
