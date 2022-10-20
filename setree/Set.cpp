@@ -199,7 +199,7 @@ Node *removeHelp(Node *current, const string &value)
 {
     if (current == NULL)
     {
-        return 0;
+        return NULL;
     }
     else if (value < current->data)
     {
@@ -215,19 +215,19 @@ Node *removeHelp(Node *current, const string &value)
         if (current->right == NULL && current->left == NULL)
         {
             delete current;
-            current = NULL;
+            return NULL;
         }
         else if (current->right == NULL)
         {
-            Node *temp = current;
-            current = current->left;
-            delete temp;
+            Node *temp = current->left;
+            delete current;
+            return temp;
         }
         else if (current->left == NULL)
         {
-            Node *temp = current;
-            current = current->right;
-            delete temp;
+            Node *temp = current->right;
+            delete current;
+            return temp;
         }
         else
         {
@@ -241,6 +241,10 @@ Node *removeHelp(Node *current, const string &value)
 
 size_t Set::remove(const string &value)
 {
+    if (contains(value) == false)
+    {
+        return 0;
+    }
     size_t prevCount = count();
     removeHelp(mRoot, value);
     size_t afterCount = count();

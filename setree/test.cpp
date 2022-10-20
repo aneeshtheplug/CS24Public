@@ -15,7 +15,8 @@ int main()
   set.insert("a");
   set.insert("c");
   set.insert("f");
-  cout << set.lookup(5);
+  cout << set.remove("c");
+  set.print();
 
   return 0;
 }
