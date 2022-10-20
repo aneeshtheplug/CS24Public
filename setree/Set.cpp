@@ -50,7 +50,11 @@ Node *copyTree(Node *head)
 }
 Set::Set(const Set &other)
 {
-    copyTree(other.mRoot);
+    if (other.mRoot == NULL)
+    {
+        mRoot = NULL;
+    }
+    mRoot = copyTree(other.mRoot);
 }
 
 size_t Set::insert(const string &value)
