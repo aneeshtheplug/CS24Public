@@ -188,9 +188,9 @@ bool Set::contains(const string &value) const
 
 Node *findSucc(Node *current)
 {
-    while (current && current->left != NULL)
+    while (current && current->right != NULL)
     {
-        current = current->left;
+        current = current->right;
     }
     return current;
 }
@@ -231,9 +231,9 @@ Node *removeHelp(Node *current, const string &value)
         }
         else
         {
-            Node *temp = findSucc(current->right);
+            Node *temp = findSucc(current->left);
             current->data = temp->data;
-            current->right = removeHelp(current->right, current->data);
+            current->left = removeHelp(current->left, current->data);
         }
     }
     return current;
