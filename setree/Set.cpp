@@ -278,6 +278,10 @@ Node *reverseInOrder(Node *head, size_t &counter, size_t target)
 }
 const string &Set::lookup(size_t n) const
 {
+    if (mRoot == NULL || n >= count())
+    {
+        throw std::out_of_range("Value does not exist");
+    }
     size_t counter = 0;
     Node *temp = reverseInOrder(mRoot, counter, n + 1);
     return temp->data;
