@@ -32,8 +32,26 @@ Set::~Set()
     destruct(mRoot);
 }
 
+void copyTree(Node *head)
+{
+    if (head == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        Node *temp = new Node();
+        temp->data = head->data;
+        temp->left = copyTree(head->left);
+        temp->right = copyTree(head->right);
+    }
+}
 Set::Set(const Set &other)
 {
+    if (other.mRoot != NULL)
+    {
+        copyTree(other.mRoot);
+    }
 }
 
 size_t Set::insert(const string &value)
