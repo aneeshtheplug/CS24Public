@@ -38,6 +38,10 @@ Set::Set(const Set &other)
 
 size_t Set::insert(const string &value)
 {
+    if (contains(value) == true)
+    {
+        return 0;
+    }
     Node *newNode = new Node();
     newNode->data = value;
     newNode->left = NULL;
