@@ -29,7 +29,8 @@ void destruct(Node *head)
 
 Set::~Set()
 {
-    clear();
+    destruct(mRoot);
+    mRoot = NULL;
 }
 
 Node *copyTree(Node *head)
@@ -246,7 +247,7 @@ size_t Set::remove(const string &value)
     //     return 0;
     // }
     size_t prevCount = count();
-    removeHelp(mRoot, value);
+    mRoot = removeHelp(mRoot, value);
     size_t afterCount = count();
     if (prevCount == afterCount)
     {
