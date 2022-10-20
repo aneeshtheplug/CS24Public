@@ -12,8 +12,24 @@ Set::Set(Set &&other)
     mRoot = other.mRoot;
     other.mRoot = NULL;
 }
+
+void destruct(Node *head)
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    else
+    {
+        destruct(head->left);
+        destruct(head->right);
+        delete head;
+    }
+}
+
 Set::~Set()
 {
+    destruct(mRoot);
 }
 
 Set::Set(const Set &other)
