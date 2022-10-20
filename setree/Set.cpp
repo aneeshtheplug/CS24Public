@@ -258,7 +258,27 @@ size_t Set::remove(const string &value)
     }
 }
 
+Node *reverseInOrder(Node *head, size_t &counter, size_t target)
+{
+    if (head == NULL)
+    {
+        return NULL;
+    }
+    Node *leftMost = reverseInOrder(head->left, counter, target);
+    if (leftMost != NULL)
+    {
+        return leftMost;
+    }
+    counter = counter + 1;
+    if (counter == target)
+    {
+        return head;
+    }
+    return reverseInOrder(head->right, counter, target);
+}
 const string &Set::lookup(size_t n) const
 {
-    return mRoot->data;
+    size_t counter = 0;
+    Node *temp = reverseInOrder(mRoot, counter, n + 1);
+    return temp->data;
 }
