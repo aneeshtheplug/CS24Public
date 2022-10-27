@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include <stdexcept>
 
 // Implement your Stack member functions here.
 
