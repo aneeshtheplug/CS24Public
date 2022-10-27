@@ -21,35 +21,35 @@ AST *AST::parse(const std::string &expression)
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            Add *addition = new Add(first, second);
+            Add *addition = new Add(second, first);
             s.push(addition);
         }
         else if (token == "-")
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            Subtract *minus = new Subtract(first, second);
+            Subtract *minus = new Subtract(second, first);
             s.push(minus);
         }
         else if (token == "*")
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            Mutliply *mult = new Mutliply(first, second);
+            Mutliply *mult = new Mutliply(second, first);
             s.push(mult);
         }
         else if (token == "/")
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            Divide *div = new Divide(first, second);
+            Divide *div = new Divide(second, first);
             s.push(div);
         }
         else if (token == "%")
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            Modulo *mod = new Modulo(first, second);
+            Modulo *mod = new Modulo(second, first);
             s.push(mod);
         }
         else
