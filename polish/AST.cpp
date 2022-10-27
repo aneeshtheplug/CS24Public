@@ -23,7 +23,6 @@ AST *AST::parse(const std::string &expression)
             AST *second = s.pop();
             Add *addition = new Add(first, second);
             s.push(addition);
-            return addition;
         }
         else if (token == "-")
         {
@@ -31,7 +30,6 @@ AST *AST::parse(const std::string &expression)
             AST *second = s.pop();
             Subtract *minus = new Subtract(first, second);
             s.push(minus);
-            return minus;
         }
         else if (token == "*")
         {
@@ -39,7 +37,6 @@ AST *AST::parse(const std::string &expression)
             AST *second = s.pop();
             Mutliply *mult = new Mutliply(first, second);
             s.push(mult);
-            return mult;
         }
         else if (token == "/")
         {
@@ -47,7 +44,6 @@ AST *AST::parse(const std::string &expression)
             AST *second = s.pop();
             Divide *div = new Divide(first, second);
             s.push(div);
-            return div;
         }
         else if (token == "%")
         {
@@ -55,7 +51,6 @@ AST *AST::parse(const std::string &expression)
             AST *second = s.pop();
             Modulo *mod = new Modulo(first, second);
             s.push(mod);
-            return mod;
         }
         else
         {
@@ -67,11 +62,12 @@ AST *AST::parse(const std::string &expression)
             {
                 double value = stod(token);
                 Number *num = new Number(value);
-                return num;
+                s.push(num);
             }
         }
     }
-    return nullptr;
+    AST *final = s.pop();
+    return final;
 }
 
 bool isNumber(string str)
