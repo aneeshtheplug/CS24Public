@@ -35,83 +35,23 @@ void Stack::push(AST *pointer)
     }
 }
 
-void Stack::pop()
+AST *Stack::pop()
 {
     if (top == nullptr)
     {
+        throw std::runtime_error("No elements in stake");
     }
     else
     {
-        if (top->next == nullptr)
-        {
-            delete top;
-            top = nullptr;
-        }
-        else
-        {
-            Node *temp = top->next;
-            delete top;
-            top = temp;
-        }
+        Node *temp = top->next;
+        AST *prevTop = top->data;
+        delete top;
+        top = temp;
+        return prevTop;
     }
 }
 
-/*
-Stack::Stack()
+Node *Stack::topNode()
 {
-    arr = new char[1];
+    return top;
 }
-Stack::~Stack()
-{
-    delete[] arr;
-}
-void Stack::pop()
-{
-    if (count - 1 <= capacity / 2)
-    {
-        size_t arraySize = capacity / 2;
-        char *newArr = new char[arraySize];
-        top = top - 1;
-        for (size_t i = 0; i <= top; ++i)
-        {
-            newArr[i] = arr[i];
-        }
-        capacity = arraySize;
-        delete[] arr;
-        arr = newArr;
-    }
-    else
-    {
-        top = top - 1;
-    }
-    count = count - 1;
-}
-void Stack::push(AST *node)
-{
-    if (count < capacity)
-    {
-        top = top + 1;
-        arr[top] = char(node);
-    }
-    else
-    {
-        size_t arraySize = capacity * 2;
-        char *newArr = new char[arraySize];
-        top = top + 1;
-        for (size_t i = 0; i < top; ++i)
-        {
-            newArr[i] = arr[i];
-        }
-        arr[top] = char(node);
-        capacity = arraySize;
-        delete[] arr;
-        arr = newArr;
-    }
-    count = count + 1;
-}
-
-char Stack::peek()
-{
-    return arr[top];
-}
-*/

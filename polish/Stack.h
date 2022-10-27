@@ -18,6 +18,7 @@ public:
     Stack();
     ~Stack();
     void push(AST *pointer);
-    void pop();
+    AST *pop();
+    Node *topNode();
 };
 #endif
