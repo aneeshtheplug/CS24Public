@@ -14,46 +14,76 @@ AST *AST::parse(const std::string &expression)
 {
     Stack s;
     string token;
+    double stackCount = 0;
     istringstream myExp(expression);
     while (myExp >> token)
     {
         if (token == "+")
         {
+            if (stackCount < 2)
+            {
+                throw runtime_error("Not enough operands.");
+            }
             AST *first = s.pop();
             AST *second = s.pop();
             Add *addition = new Add(second, first);
             s.push(addition);
+            stackCount--;
         }
         else if (token == "-")
         {
+            if (stackCount < 2)
+            {
+                throw runtime_error("Not enough operands.");
+            }
             AST *first = s.pop();
             AST *second = s.pop();
             Subtract *minus = new Subtract(second, first);
             s.push(minus);
+            stackCount--;
         }
         else if (token == "*")
         {
+            if (stackCount < 2)
+            {
+                throw runtime_error("Not enough operands.");
+            }
             AST *first = s.pop();
             AST *second = s.pop();
             Mutliply *mult = new Mutliply(second, first);
             s.push(mult);
+            stackCount--;
         }
         else if (token == "/")
         {
+            if (stackCount < 2)
+            {
+                throw runtime_error("Not enough operands.");
+            }
             AST *first = s.pop();
             AST *second = s.pop();
             Divide *div = new Divide(second, first);
             s.push(div);
+            stackCount--;
         }
         else if (token == "%")
         {
+            if (stackCount < 2)
+            {
+                throw runtime_error("Not enough operands.");
+            }
             AST *first = s.pop();
             AST *second = s.pop();
             Modulo *mod = new Modulo(second, first);
             s.push(mod);
+            stackCount--;
         }
         else if (token == "~")
         {
+            if (stackCount < 1)
+            {
+                throw runtime_error("Not enough operands");
+            }
             AST *little = s.pop();
             Negation *negate = new Negation(little);
             s.push(negate);
@@ -69,6 +99,7 @@ AST *AST::parse(const std::string &expression)
                 double value = stod(token);
                 Number *num = new Number(value);
                 s.push(num);
+                stackCount++;
             }
         }
     }
