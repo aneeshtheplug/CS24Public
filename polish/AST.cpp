@@ -74,7 +74,7 @@ AST *AST::parse(const std::string &expression)
     }
     if (s.topNode() == nullptr)
     {
-        throw runtime_error("No input");
+        throw runtime_error("No input.");
     }
     else if (s.count() > 1)
     {
