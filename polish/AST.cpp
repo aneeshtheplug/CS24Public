@@ -82,7 +82,7 @@ AST *AST::parse(const std::string &expression)
         {
             if (stackCount < 1)
             {
-                throw runtime_error("Not enough operands");
+                throw runtime_error("Not enough operands.");
             }
             AST *little = s.pop();
             Negation *negate = new Negation(little);
