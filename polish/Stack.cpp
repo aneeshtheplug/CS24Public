@@ -14,6 +14,7 @@ Stack::~Stack()
     while (current != nullptr)
     {
         Node *temp = current->next;
+        delete current->data;
         delete current;
         current = temp;
     }
