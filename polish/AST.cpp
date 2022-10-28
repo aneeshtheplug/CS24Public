@@ -62,7 +62,7 @@ AST *AST::parse(const std::string &expression)
         {
             if (isNumber(token) == false)
             {
-                throw runtime_error("Invalid token:: " + token);
+                throw runtime_error("Invalid token: " + token);
             }
             else
             {
