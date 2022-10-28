@@ -39,6 +39,12 @@ Add::Add(AST *lhs, AST *rhs)
     right = rhs;
 }
 
+Add::~Add()
+{
+    delete left;
+    delete right;
+}
+
 std::string Add::prefix() const
 {
     std::string polish = "+";
@@ -71,6 +77,12 @@ Subtract::Subtract(AST *lhs, AST *rhs)
     right = rhs;
 }
 
+Subtract::~Subtract()
+{
+    delete left;
+    delete right;
+}
+
 std::string Subtract::prefix() const
 {
     std::string polish = "-";
@@ -101,6 +113,13 @@ Mutliply::Mutliply(AST *lhs, AST *rhs)
     left = lhs;
     right = rhs;
 }
+
+Mutliply::~Mutliply()
+{
+    delete left;
+    delete right;
+}
+
 std::string Mutliply::prefix() const
 {
     std::string polish = "*";
@@ -133,6 +152,11 @@ Divide::Divide(AST *lhs, AST *rhs)
     right = rhs;
 }
 
+Divide::~Divide()
+{
+    delete left;
+    delete right;
+}
 std::string Divide::prefix() const
 {
     std::string polish = "/";
@@ -168,6 +192,12 @@ Modulo::Modulo(AST *lhs, AST *rhs)
     right = rhs;
 }
 
+Modulo::~Modulo()
+{
+    delete left;
+    delete right;
+}
+
 std::string Modulo::prefix() const
 {
     std::string polish = "%";
@@ -201,6 +231,12 @@ Negation::Negation(AST *small)
 {
     child = small;
 }
+
+Negation::~Negation()
+{
+    delete child;
+}
+
 std::string Negation::prefix() const
 {
     std::string polish = "~";
