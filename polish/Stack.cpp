@@ -40,7 +40,7 @@ AST *Stack::pop()
 {
     if (top == nullptr)
     {
-        throw std::runtime_error("No elements in stake");
+        throw std::runtime_error("Not enough operands.");
     }
     else
     {
