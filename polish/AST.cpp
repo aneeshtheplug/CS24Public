@@ -21,10 +21,6 @@ AST *AST::parse(const std::string &expression)
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            if (first == nullptr || second == nullptr)
-            {
-                throw runtime_error("Not enough operands.");
-            }
             Add *addition = new Add(second, first);
             s.push(addition);
         }
@@ -32,10 +28,6 @@ AST *AST::parse(const std::string &expression)
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            if (first == nullptr || second == nullptr)
-            {
-                throw runtime_error("Not enough operands.");
-            }
             Subtract *minus = new Subtract(second, first);
             s.push(minus);
         }
@@ -43,10 +35,6 @@ AST *AST::parse(const std::string &expression)
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            if (first == nullptr || second == nullptr)
-            {
-                throw runtime_error("Not enough operands.");
-            }
             Mutliply *mult = new Mutliply(second, first);
             s.push(mult);
         }
@@ -54,10 +42,6 @@ AST *AST::parse(const std::string &expression)
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            if (first == nullptr || second == nullptr)
-            {
-                throw runtime_error("Not enough operands.");
-            }
             Divide *div = new Divide(second, first);
             s.push(div);
         }
@@ -65,20 +49,12 @@ AST *AST::parse(const std::string &expression)
         {
             AST *first = s.pop();
             AST *second = s.pop();
-            if (first == nullptr || second == nullptr)
-            {
-                throw runtime_error("Not enough operands.");
-            }
             Modulo *mod = new Modulo(second, first);
             s.push(mod);
         }
         else if (token == "~")
         {
             AST *little = s.pop();
-            if (little == nullptr)
-            {
-                throw runtime_error("Not enough operands.");
-            }
             Negation *negate = new Negation(little);
             s.push(negate);
         }
