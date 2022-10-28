@@ -56,3 +56,22 @@ Node *Stack::topNode()
 {
     return top;
 }
+
+double Stack::count()
+{
+    double counter = 0;
+    if (top == nullptr)
+    {
+        return counter;
+    }
+    else
+    {
+        Node *current = top;
+        while (current != nullptr)
+        {
+            counter++;
+            current = current->next;
+        }
+        return counter;
+    }
+}

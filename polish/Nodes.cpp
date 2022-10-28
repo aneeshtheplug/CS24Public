@@ -1,5 +1,6 @@
 #include "Nodes.h"
 #include <sstream>
+#include <stdexcept>
 
 // Implement your AST subclasses' member functions here.
 
@@ -154,6 +155,10 @@ std::string Divide::postfix() const
 
 double Divide::value() const
 {
+    if (right->value() == 0)
+    {
+        throw std::runtime_error("Division by zero");
+    }
     return left->value() / right->value();
 }
 
@@ -185,37 +190,35 @@ std::string Modulo::postfix() const
 }
 double Modulo::value() const
 {
+    if (right->value() == 0)
+    {
+        throw std::runtime_error("Division by zero");
+    }
     return fmod(left->value(), right->value());
 }
 
-std::string Negtation::prefix() const
+Negation::Negation(AST *small)
+{
+    child = small;
+}
+std::string Negation::prefix() const
 {
     std::string polish = "~";
-    polish += left->prefix();
     polish += " ";
-    polish += right->prefix();
+    polish += child->prefix();
     return polish;
 }
 
-std::string Negtation::postfix() const
+std::string Negation::postfix() const
 {
     std::string reverse = "";
-    reverse += left->postfix();
-    reverse += " ";
-    reverse += right->postfix();
+    reverse += child->postfix();
     reverse += " ";
     reverse += "~";
     return reverse;
 }
 
-double Negtation::value() const
+double Negation::value() const
 {
-    if (left->value())
-    {
-        return left->value() * -1;
-    }
-    else
-    {
-        return right->value() * -1;
-    }
+    return child->value() * -1;
 }

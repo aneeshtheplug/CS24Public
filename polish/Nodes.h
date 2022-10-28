@@ -72,11 +72,11 @@ public:
     double value() const;
 };
 
-class Negtation : public AST
+class Negation : public AST
 {
 public:
-    AST *left;
-    AST *right;
+    Negation(AST *small);
+    AST *child;
     std::string prefix() const;
     std::string postfix() const;
     double value() const;

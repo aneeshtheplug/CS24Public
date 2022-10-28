@@ -52,6 +52,12 @@ AST *AST::parse(const std::string &expression)
             Modulo *mod = new Modulo(second, first);
             s.push(mod);
         }
+        else if (token == "~")
+        {
+            AST *little = s.pop();
+            Negation *negate = new Negation(little);
+            s.push(negate);
+        }
         else
         {
             if (isNumber(token) == false)
@@ -65,6 +71,14 @@ AST *AST::parse(const std::string &expression)
                 s.push(num);
             }
         }
+    }
+    if (s.topNode() == nullptr)
+    {
+        throw runtime_error("No input");
+    }
+    else if (s.count() > 1)
+    {
+        throw runtime_error("Too many operands");
     }
     AST *final = s.pop();
     return final;

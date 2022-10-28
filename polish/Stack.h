@@ -20,5 +20,6 @@ public:
     void push(AST *pointer);
     AST *pop();
     Node *topNode();
+    double count();
 };
 #endif
