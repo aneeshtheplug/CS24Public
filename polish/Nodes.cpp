@@ -157,7 +157,7 @@ double Divide::value() const
 {
     if (right->value() == 0)
     {
-        throw std::runtime_error("Division by zero");
+        throw std::runtime_error("Division by zero.");
     }
     return left->value() / right->value();
 }
@@ -192,7 +192,7 @@ double Modulo::value() const
 {
     if (right->value() == 0)
     {
-        throw std::runtime_error("Division by zero");
+        throw std::runtime_error("Division by zero.");
     }
     return fmod(left->value(), right->value());
 }
