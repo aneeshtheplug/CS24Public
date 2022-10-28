@@ -41,7 +41,7 @@ AST *Stack::pop()
 {
     if (top == nullptr)
     {
-        throw std::runtime_error("Not enough operands.");
+        throw std::runtime_error("No elements in stack.");
     }
     else
     {
