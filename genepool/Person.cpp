@@ -372,5 +372,12 @@ std::set<Person *> Person::ancestors(PMod pmod)
 
 std::set<Person *> Person::descendants()
 {
-    return std::set<Person *>();
+    set<Person *> descendant;
+    set<Person *> iterate = child;
+    for (Person *per : iterate)
+    {
+        descendant.merge(per->descendants());
+    }
+    descendant.merge(iterate);
+    return descendant;
 }
