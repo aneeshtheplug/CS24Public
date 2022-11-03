@@ -8,6 +8,10 @@ using namespace std;
 
 GenePool::~GenePool()
 {
+    for (auto itr = gene.begin(); itr != gene.end(); itr++)
+    {
+        delete itr->second;
+    }
 }
 GenePool::GenePool(std::istream &stream)
 {

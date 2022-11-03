@@ -134,37 +134,52 @@ std::set<Person *> Person::parents(PMod pmod)
 std::set<Person *> Person::grandparents(PMod pmod)
 {
     set<Person *> grandparent;
-    // if (pmod == PMod::MATERNAL)
-    // {
-    //     for (Person *ch : parents(PMod::MATERNAL))
-    //     {
-    //         for (Person *old : ch->parents(PMod::ANY))
-    //         {
-    //             grandparent.insert(old);
-    //         }
-    //     }
-    // }
-    // else if (pmod == PMod::PATERNAL)
-    // {
-    //     for (Person *ch : parents(PMod::PATERNAL))
-    //     {
-    //         for (Person *old : ch->parents(PMod::ANY))
-    //         {
-    //             grandparent.insert(old);
-    //         }
-    //     }
-    // }
-    // else
-    // {
-    //     for (Person *ch : parents(PMod::ANY))
-    //     {
-    //         for (Person *old : ch->parents(PMod::ANY))
-    //         {
-    //             grandparent.insert(old);
-    //         }
-    //     }
-    // }
+    if (pmod == PMod::MATERNAL)
+    {
+        for (Person *ch : parents(PMod::MATERNAL))
+        {
+            for (Person *old : ch->parents(PMod::ANY))
+            {
+                if (old != nullptr)
+                {
+                    grandparent.insert(old);
+                }
+            }
+        }
+    }
+    else if (pmod == PMod::PATERNAL)
+    {
+        for (Person *ch : parents(PMod::PATERNAL))
+        {
+            for (Person *old : ch->parents(PMod::ANY))
+            {
+                if (old != nullptr)
+                {
+                    grandparent.insert(old);
+                }
+            }
+        }
+    }
+    else
+    {
+        for (Person *ch : parents(PMod::ANY))
+        {
+            for (Person *old : ch->parents(PMod::ANY))
+            {
+                if (old != nullptr)
+                {
+                    grandparent.insert(old);
+                }
+            }
+        }
+    }
     return grandparent;
+}
+
+std::set<Person *> Person::grandfathers(PMod pmod)
+{
+    set<Person *> grandfather;
+    return grandfather;
 }
 
 std::set<Person *> Person::ancestors(PMod pmod)
@@ -193,11 +208,6 @@ std::set<Person *> Person::descendants()
 }
 
 std::set<Person *> Person::grandmothers(PMod pmod)
-{
-    return std::set<Person *>();
-}
-
-std::set<Person *> Person::grandfathers(PMod pmod)
 {
     return std::set<Person *>();
 }
