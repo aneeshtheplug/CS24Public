@@ -306,7 +306,7 @@ std::set<Person *> Person::aunts(PMod pmod, SMod smod)
     set<Person *> iterate = parents(pmod);
     for (Person *per : iterate)
     {
-        for (Person *au : per->sisters(pmod, smod))
+        for (Person *au : per->sisters(PMod::ANY, smod))
         {
             aunt.insert(au);
         }
@@ -320,7 +320,7 @@ std::set<Person *> Person::uncles(PMod pmod, SMod smod)
     set<Person *> iterate = parents(pmod);
     for (Person *per : iterate)
     {
-        for (Person *au : per->brothers(pmod, smod))
+        for (Person *au : per->brothers(PMod::ANY, smod))
         {
             uncle.insert(au);
         }
