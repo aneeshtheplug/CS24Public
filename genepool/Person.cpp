@@ -201,7 +201,7 @@ std::set<Person *> Person::siblings(PMod pmod, SMod smod)
         {
             for (Person *per : par->child)
             {
-                if (per->dad == dad && per->mom == mom)
+                if (per->dad == dad && per->mom == mom && mom != nullptr && dad != nullptr)
                 {
                     if (per->strName != strName)
                     {
