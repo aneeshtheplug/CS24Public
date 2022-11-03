@@ -345,9 +345,29 @@ std::set<Person *> Person::cousins(PMod pmod, SMod smod)
     return cousin;
 }
 
+std::set<Person *> ancestorHelp(Person *par)
+{
+    set<Person *> ancestor;
+    if (par == nullptr)
+    {
+        return ancestor;
+    }
+    else
+    {
+        ancestor.insert(par);
+    }
+    return ancestor;
+}
 std::set<Person *> Person::ancestors(PMod pmod)
 {
-    return std::set<Person *>();
+    set<Person *> ancestor;
+    set<Person *> iterate = parents(pmod);
+    for (Person *per : iterate)
+    {
+        ancestor.merge(per->ancestors());
+    }
+    ancestor.merge(iterate);
+    return ancestor;
 }
 
 std::set<Person *> Person::descendants()
