@@ -117,16 +117,28 @@ std::set<Person *> Person::parents(PMod pmod)
     set<Person *> parent;
     if (pmod == PMod::MATERNAL)
     {
-        parent.insert(mom);
+        if (mom != nullptr)
+        {
+            parent.insert(mom);
+        }
     }
     else if (pmod == PMod::PATERNAL)
     {
-        parent.insert(dad);
+        if (dad != nullptr)
+        {
+            parent.insert(dad);
+        }
     }
     else
     {
-        parent.insert(mom);
-        parent.insert(dad);
+        if (mom != nullptr)
+        {
+            parent.insert(mom);
+        }
+        if (dad != nullptr)
+        {
+            parent.insert(dad);
+        }
     }
     return parent;
 }
