@@ -328,12 +328,24 @@ std::set<Person *> Person::uncles(PMod pmod, SMod smod)
     return uncle;
 }
 
-std::set<Person *> Person::ancestors(PMod pmod)
+std::set<Person *> Person::cousins(PMod pmod, SMod smod)
 {
-    return std::set<Person *>();
+    set<Person *> cousin;
+    set<Person *> iterate = parents(pmod);
+    for (Person *per : iterate)
+    {
+        for (Person *sib : per->siblings(PMod::ANY, smod))
+        {
+            for (Person *cous : sib->child)
+            {
+                cousin.insert(cous);
+            }
+        }
+    }
+    return cousin;
 }
 
-std::set<Person *> Person::cousins(PMod pmod, SMod smod)
+std::set<Person *> Person::ancestors(PMod pmod)
 {
     return std::set<Person *>();
 }
