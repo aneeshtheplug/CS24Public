@@ -266,6 +266,40 @@ std::set<Person *> Person::sisters(PMod pmod, SMod smod)
     return sister;
 }
 
+std::set<Person *> Person::nieces(PMod pmod, SMod smod)
+{
+    set<Person *> niece;
+    set<Person *> iterate = siblings(pmod, smod);
+    for (Person *per : iterate)
+    {
+        for (Person *ni : per->child)
+        {
+            if (ni->gender() == Gender::FEMALE)
+            {
+                niece.insert(ni);
+            }
+        }
+    }
+    return niece;
+}
+
+std::set<Person *> Person::nephews(PMod pmod, SMod smod)
+{
+    set<Person *> nephew;
+    set<Person *> iterate = siblings(pmod, smod);
+    for (Person *per : iterate)
+    {
+        for (Person *ni : per->child)
+        {
+            if (ni->gender() == Gender::MALE)
+            {
+                nephew.insert(ni);
+            }
+        }
+    }
+    return nephew;
+}
+
 std::set<Person *> Person::ancestors(PMod pmod)
 {
     return std::set<Person *>();
@@ -282,16 +316,6 @@ std::set<Person *> Person::cousins(PMod pmod, SMod smod)
 }
 
 std::set<Person *> Person::descendants()
-{
-    return std::set<Person *>();
-}
-
-std::set<Person *> Person::nephews(PMod pmod, SMod smod)
-{
-    return std::set<Person *>();
-}
-
-std::set<Person *> Person::nieces(PMod pmod, SMod smod)
 {
     return std::set<Person *>();
 }
