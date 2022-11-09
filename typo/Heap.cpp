@@ -1,5 +1,4 @@
 #include "Heap.h"
-#include <vector>
 #include <iostream>
 
 Heap::Heap(size_t capacity)
@@ -93,6 +92,13 @@ Heap::Entry Heap::pop()
                 break;
             }
         }
+        Entry *newArray = new Entry[mCount];
+        for (size_t i = 0; i < mCount; i++)
+        {
+            newArray[i] = mData[i];
+        }
+        delete[] mData;
+        mData = newArray;
         return smallest;
     }
 }
