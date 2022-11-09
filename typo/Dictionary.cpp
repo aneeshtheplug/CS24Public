@@ -4,7 +4,7 @@ using namespace std;
 
 bool isLower(string word)
 {
-    for (size_t i = 0; i < word.length(); i++)
+    for (size_t i = 0; i < word.size(); i++)
     {
         if (islower(word[i]) == true)
         {
