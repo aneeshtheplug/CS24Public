@@ -23,7 +23,9 @@ Heap::Heap(const Heap &other)
 Heap::Heap(Heap &&other)
 {
     mData = other.mData;
-    delete[] other.mData;
+    other.mData = nullptr;
+    mCount = other.count();
+    mCapacity = other.capacity();
 }
 
 Heap::~Heap()
