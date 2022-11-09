@@ -92,7 +92,7 @@ Heap::Entry Heap::pop()
                 break;
             }
         }
-        Entry *newArray = new Entry[mCount];
+        Entry *newArray = new Entry[mCapacity];
         for (size_t i = 0; i < mCount; i++)
         {
             newArray[i] = mData[i];
