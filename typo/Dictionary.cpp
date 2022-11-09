@@ -6,7 +6,7 @@ bool isLower(string word)
 {
     for (size_t i = 0; i < word.length(); i++)
     {
-        if (islower(word[i]) == true)
+        if (islower(word[i]))
         {
             continue;
         }
