@@ -92,13 +92,6 @@ Heap::Entry Heap::pop()
                 break;
             }
         }
-        Entry *newArray = new Entry[mCapacity];
-        for (size_t i = 0; i < mCount; i++)
-        {
-            newArray[i] = mData[i];
-        }
-        delete[] mData;
-        mData = newArray;
         return smallest;
     }
 }
@@ -120,12 +113,12 @@ void Heap::push(const std::string &value, float score)
     {
         throw std::overflow_error("No space for new item");
     }
-    Entry *newEntry = new Entry();
-    newEntry->value = value;
-    newEntry->score = score;
+    Entry newEntry;
+    newEntry.value = value;
+    newEntry.score = score;
     mCount++;
     size_t i = mCount - 1;
-    mData[i] = *newEntry;
+    mData[i] = newEntry;
     while (i != 0 && mData[parent(i)].score > mData[i].score)
     {
         Entry temp = mData[parent(i)];
@@ -155,11 +148,11 @@ Heap::Entry Heap::pushpop(const std::string &value, float score)
     }
     else
     {
-        Entry *newEntry = new Entry();
-        newEntry->value = value;
-        newEntry->score = score;
+        Entry newEntry;
+        newEntry.value = value;
+        newEntry.score = score;
         Entry smallest = mData[0];
-        mData[0] = *newEntry;
+        mData[0] = newEntry;
         size_t it = 0;
         while (true)
         {
