@@ -42,7 +42,7 @@ float distanceCalc(string str, const std::vector<Point> &ptr)
         match = match + score;
         i++;
     }
-    float avg = match / str.length();
+    float avg = match / float(str.length());
     return avg;
 }
 
