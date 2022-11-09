@@ -4,7 +4,7 @@ using namespace std;
 
 bool isLower(string word)
 {
-    for (size_t i = 0; i < word.size(); i++)
+    for (size_t i = 0; i < word.length(); i++)
     {
         if (islower(word[i]) == true)
         {
@@ -38,7 +38,7 @@ float distanceCalc(string str, const std::vector<Point> &ptr)
     {
         int index = (str[i] - 97);
         float distance = sqrt(pow((QWERTY[index].x - itr->x), 2) + pow((QWERTY[index].y - itr->y), 2));
-        float score = 1 / (10 * pow(distance, 2) + 1);
+        float score = 1.0 / (10.0 * pow(distance, 2) + 1.0);
         match = match + score;
         i++;
     }
@@ -62,10 +62,17 @@ Heap Dictionary::correct(const std::vector<Point> &points, size_t maxcount, floa
     }
     for (auto it = compare.begin(); it != compare.end(); it++)
     {
-        float score = distanceCalc(*it, points);
-        if (score >= cutoff)
+        float newScore = distanceCalc(*it, points);
+        if (newScore >= cutoff)
         {
-            heap.push(*it, score);
+            if (heap.count() < heap.capacity())
+            {
+                heap.push(*it, newScore);
+            }
+            else if (heap.top().score < newScore)
+            {
+                heap.pushpop(*it, newScore);
+            }
         }
     }
     return heap;
