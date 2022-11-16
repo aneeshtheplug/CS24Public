@@ -68,7 +68,7 @@ float StarMap::distanceHelp(Star str, float x1, float y1, float z1)
   return distance;
 }
 
-void StarMap::pushSpace(std::vector<Star> close, Star add, float dist, float x, float y, float z)
+void StarMap::pushSpace(std::vector<Star> &close, Star add, float dist, float x, float y, float z)
 {
   if (close.size() == 0)
   {
@@ -95,7 +95,7 @@ void StarMap::pushSpace(std::vector<Star> close, Star add, float dist, float x, 
   }
 }
 
-void StarMap::pushFull(std::vector<Star> close, Star add, float dist, float x, float y, float z)
+void StarMap::pushFull(std::vector<Star> &close, Star add, float dist, float x, float y, float z)
 {
   int insert = 0;
   for (int id = 0; id < int(close.size() - 1); id++)
