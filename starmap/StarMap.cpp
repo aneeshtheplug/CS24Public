@@ -57,6 +57,7 @@ std::vector<Star> StarMap::findHelp(float xDist, float yDist, float zDist, size_
     {
       pushFull(closest, *itr, distance, xDist, yDist, zDist);
     }
+    itr++;
   }
   return closest;
 }
