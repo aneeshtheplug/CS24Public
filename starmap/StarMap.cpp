@@ -61,7 +61,7 @@ std::vector<Star> StarMap::findHelp(float xDist, float yDist, float zDist, size_
   return closest;
 }
 
-float distanceHelp(Star str, float x1, float y1, float z1)
+float StarMap::distanceHelp(Star str, float x1, float y1, float z1)
 {
   float distance = sqrt(sqrt(pow(str.x - x1, 2)) + sqrt(pow(str.y - y1, 2)) + sqrt(pow(str.z - z1, 2)));
   return distance;
