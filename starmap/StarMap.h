@@ -27,7 +27,6 @@ public:
     std::vector<Star> find(size_t n, float x, float y, float z);
 
     // Other Member Functions
-    std::vector<Star> findHelp(float xDist, float yDist, float zDist, size_t size);
     void pushSpace(std::vector<Star> &close, Star add, float dist, float x, float y, float z);
     void pushFull(std::vector<Star> &close, Star add, float dist, float x, float y, float z);
     float distanceHelp(Star str, float x1, float y1, float z2);

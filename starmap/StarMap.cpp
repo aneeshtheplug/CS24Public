@@ -41,27 +41,6 @@ StarMap::~StarMap()
   starVec.clear();
 }
 
-std::vector<Star> StarMap::findHelp(float xDist, float yDist, float zDist, size_t size)
-{
-  vector<Star> closest;
-  auto itr = starVec.begin();
-  while (itr != starVec.end())
-  {
-    float distance;
-    distance = sqrt(sqrt(pow(itr->x - xDist, 2)) + sqrt(pow(itr->y - yDist, 2)) + sqrt(pow(itr->z - zDist, 2)));
-    if (closest.size() < size)
-    {
-      pushSpace(closest, *itr, distance, xDist, yDist, zDist);
-    }
-    else
-    {
-      pushFull(closest, *itr, distance, xDist, yDist, zDist);
-    }
-    itr++;
-  }
-  return closest;
-}
-
 float StarMap::distanceHelp(Star str, float x1, float y1, float z1)
 {
   float distance = sqrt(sqrt(pow(str.x - x1, 2)) + sqrt(pow(str.y - y1, 2)) + sqrt(pow(str.z - z1, 2)));
@@ -139,6 +118,21 @@ void StarMap::pushFull(std::vector<Star> &close, Star add, float dist, float x, 
 
 std::vector<Star> StarMap::find(size_t n, float x, float y, float z)
 {
-  vector<Star> close = findHelp(x, y, z, n);
-  return close;
+  vector<Star> closest;
+  auto itr = starVec.begin();
+  while (itr != starVec.end())
+  {
+    float distance;
+    distance = sqrt(sqrt(pow(itr->x - x, 2)) + sqrt(pow(itr->y - y, 2)) + sqrt(pow(itr->z - z, 2)));
+    if (closest.size() < n)
+    {
+      pushSpace(closest, *itr, distance, x, y, z);
+    }
+    else
+    {
+      pushFull(closest, *itr, distance, x, y, z);
+    }
+    itr++;
+  }
+  return closest;
 }
