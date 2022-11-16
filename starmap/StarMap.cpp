@@ -77,15 +77,14 @@ void StarMap::pushSpace(std::vector<Star> &close, Star add, float dist, float x,
 void StarMap::pushFull(std::vector<Star> &close, Star add, float dist, float x, float y, float z)
 {
   int insert = 0;
-  for (int id = 0; id < int(close.size() - 1); id++)
+  if (dist < distanceHelp(close[0], x, y, z))
   {
-    if (dist < distanceHelp(close[0], x, y, z))
-    {
-      close.insert(close.begin() + id, add);
-      insert++;
-      break;
-    }
-    else
+    close.insert(close.begin() + 0, add);
+    insert++;
+  }
+  else
+  {
+    for (int id = 0; id < int(close.size() - 1); id++)
     {
       Star test1 = close[id];
       Star test2 = close[id + 1];
@@ -101,11 +100,11 @@ void StarMap::pushFull(std::vector<Star> &close, Star add, float dist, float x, 
   }
   if (insert == 0)
   {
-    Star test = close[int(close.size())];
+    Star test = close[int(close.size() - 1)];
     float starDist = distanceHelp(test, x, y, z);
     if (dist < starDist)
     {
-      close.insert(close.begin() + int(close.size()), add);
+      close.insert(close.begin() + int(close.size() - 1), add);
       insert++;
       close.pop_back();
     }
