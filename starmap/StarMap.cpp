@@ -121,11 +121,11 @@ void StarMap::pushFull(std::vector<Star> close, Star add, float dist, float x, f
   }
   if (insert == 0)
   {
-    Star test = close[int(close.size()) + 1];
+    Star test = close[int(close.size())];
     float starDist = distanceHelp(test, x, y, z);
     if (dist < starDist)
     {
-      close.insert(close.begin() + (int(close.size()) + 1), add);
+      close.insert(close.begin() + int(close.size()), add);
       insert++;
       close.pop_back();
     }
