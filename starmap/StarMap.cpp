@@ -36,7 +36,9 @@ StarMap::StarMap(std::istream &stream)
     tree.root = tree.insert(newStar);
   }
 }
-
+StarMap::~StarMap()
+{
+}
 std::vector<Star> StarMap::find(size_t n, float x, float y, float z)
 {
   std::vector<Star> starVec;

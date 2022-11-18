@@ -23,6 +23,7 @@ private:
 public:
     // Constructor & Destructor
     StarMap(std::istream &stream);
+    ~StarMap();
 
     // Required Member Function
     std::vector<Star> find(size_t n, float x, float y, float z);
