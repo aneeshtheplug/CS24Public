@@ -3,6 +3,7 @@
 #include <string>
 #include <cmath>
 #include "Helpers.h"
+#include <iostream>
 
 using namespace std;
 
@@ -43,11 +44,12 @@ std::vector<Star> StarMap::find(size_t n, float x, float y, float z)
 {
   std::vector<Star> starVec;
   findHelp(x, y, z, tree.root, 0, n);
-  while (heap.size() > 0)
+  while (!heap.empty())
   {
-    starVec.push_back(heap.top()->star);
+    starVec.push_back(heap.top().star);
     heap.pop();
   }
+  reverse(starVec.begin(), starVec.end());
   return starVec;
 }
 
@@ -60,12 +62,18 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   kdRoot->dist = sqrt(pow(kdRoot->star.x - x1, 2) + pow(kdRoot->star.y - y1, 2) + pow(kdRoot->star.z - z1, 2));
   if (heap.size() < size)
   {
-    heap.push(kdRoot);
+    Entry *n = new Entry;
+    n->star = kdRoot->star;
+    n->score = kdRoot->dist;
+    heap.push(*n);
   }
-  else if (heap.top()->dist > kdRoot->dist)
+  else if (heap.top().score > kdRoot->dist)
   {
+    Entry *n = new Entry;
+    n->star = kdRoot->star;
+    n->score = kdRoot->dist;
+    heap.push(*n);
     heap.pop();
-    heap.push(kdRoot);
   }
   int cd = depth % 3;
   float comp;
@@ -95,7 +103,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   }
   if (cd == 0)
   {
-    if (abs(kdRoot->star.x - x1) < heap.top()->dist)
+    if (abs(kdRoot->star.x - x1) < heap.top().score)
     {
       if (x1 < kdRoot->star.x)
       {
@@ -109,7 +117,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   }
   else if (cd == 1)
   {
-    if (abs(kdRoot->star.y - y1) < heap.top()->dist)
+    if (abs(kdRoot->star.y - y1) < heap.top().score)
     {
       if (y1 < kdRoot->star.y)
       {
@@ -123,7 +131,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   }
   else
   {
-    if (abs(kdRoot->star.z - z1) < heap.top()->dist)
+    if (abs(kdRoot->star.z - z1) < heap.top().score)
     {
       if (z1 < kdRoot->star.z)
       {

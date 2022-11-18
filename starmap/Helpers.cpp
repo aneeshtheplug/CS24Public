@@ -17,6 +17,10 @@ void destruct(KD_tree::Node *treeRoot)
         delete treeRoot;
     }
 }
+KD_tree::KD_tree()
+{
+    root = nullptr;
+}
 KD_tree::~KD_tree()
 {
     destruct(root);
@@ -29,7 +33,7 @@ KD_tree::Node *KD_tree::insertHelp(Node *tRoot, Star newStar, unsigned depth)
         return newNode(newStar);
     }
     // Calculate current dimension (cd) of comparison
-    unsigned cd = depth % k;
+    unsigned cd = depth % 3;
     float starVal;
     float starVal2;
     if (cd == 0)

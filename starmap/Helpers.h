@@ -3,7 +3,6 @@
 #include "Star.h"
 // If you want to add any helper classes,
 // here's some space to do it in.
-const int k = 3;
 class KD_tree
 {
 public:
@@ -27,8 +26,9 @@ public:
     void helpPrint(Node *head);
     void print();
     ~KD_tree();
+    KD_tree();
 
 public:
-    Node *root = nullptr;
+    Node *root;
 };
 #endif
