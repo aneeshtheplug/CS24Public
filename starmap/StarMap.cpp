@@ -38,6 +38,7 @@ StarMap::StarMap(std::istream &stream)
     tree.root = tree.insert(newStar);
   }
 }
+
 StarMap::~StarMap()
 {
 }
@@ -63,17 +64,17 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   kdRoot->dist = sqrt(pow(kdRoot->star.x - x1, 2) + pow(kdRoot->star.y - y1, 2) + pow(kdRoot->star.z - z1, 2));
   if (heap.size() < size)
   {
-    Entry *n = new Entry;
-    n->star = kdRoot->star;
-    n->score = kdRoot->dist;
-    heap.push(*n);
+    Entry n;
+    n.star = kdRoot->star;
+    n.score = kdRoot->dist;
+    heap.push(n);
   }
   else if (heap.top().score > kdRoot->dist)
   {
-    Entry *n = new Entry;
-    n->star = kdRoot->star;
-    n->score = kdRoot->dist;
-    heap.push(*n);
+    Entry n;
+    n.star = kdRoot->star;
+    n.score = kdRoot->dist;
+    heap.push(n);
     heap.pop();
   }
   int cd = depth % 3;
