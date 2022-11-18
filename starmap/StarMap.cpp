@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <cmath>
+#include "Helpers.h"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ StarMap::StarMap(std::istream &stream)
     newStar.y = yCord;
     newStar.z = zCord;
     newStar.id = starId;
-    starVec.push_back(newStar);
+    tree.root = tree.insert(newStar);
   }
 }
 
@@ -41,97 +42,99 @@ StarMap::~StarMap()
   starVec.clear();
 }
 
-float StarMap::distanceHelp(Star str, float x1, float y1, float z1)
-{
-  float distance = sqrt(sqrt(pow(str.x - x1, 2)) + sqrt(pow(str.y - y1, 2)) + sqrt(pow(str.z - z1, 2)));
-  return distance;
-}
-
-void StarMap::pushSpace(std::vector<Star> &close, Star add, float dist, float x, float y, float z)
-{
-  if (close.size() == 0)
-  {
-    close.push_back(add);
-  }
-  else
-  {
-    int insert = 0;
-    for (int id = 0; id < int(close.size()); id++)
-    {
-      Star test = close[id];
-      float starDist = distanceHelp(test, x, y, z);
-      if (dist < starDist)
-      {
-        close.insert(close.begin() + id, add);
-        insert++;
-        break;
-      }
-    }
-    if (insert == 0)
-    {
-      close.insert(close.begin() + int(close.size()), add);
-    }
-  }
-}
-
-void StarMap::pushFull(std::vector<Star> &close, Star add, float dist, float x, float y, float z)
-{
-  int insert = 0;
-  if (dist < distanceHelp(close[0], x, y, z))
-  {
-    close.insert(close.begin() + 0, add);
-    insert++;
-  }
-  else
-  {
-    for (int id = 0; id < int(close.size() - 1); id++)
-    {
-      Star test1 = close[id];
-      Star test2 = close[id + 1];
-      float starDist1 = distanceHelp(test1, x, y, z);
-      float starDist2 = distanceHelp(test2, x, y, z);
-      if (dist > starDist1 && dist <= starDist2)
-      {
-        close.insert(close.begin() + (id + 1), add);
-        insert++;
-        break;
-      }
-    }
-  }
-  if (insert == 0)
-  {
-    Star test = close[int(close.size() - 1)];
-    float starDist = distanceHelp(test, x, y, z);
-    if (dist < starDist)
-    {
-      close.insert(close.begin() + int(close.size() - 1), add);
-      insert++;
-      close.pop_back();
-    }
-  }
-  else
-  {
-    close.pop_back();
-  }
-}
-
 std::vector<Star> StarMap::find(size_t n, float x, float y, float z)
 {
-  vector<Star> closest;
-  auto itr = starVec.begin();
-  while (itr != starVec.end())
+  findHelp(x, y, z, tree.root, 0, n);
+  while (heap.size() > 0)
   {
-    float distance;
-    distance = sqrt(sqrt(pow(itr->x - x, 2)) + sqrt(pow(itr->y - y, 2)) + sqrt(pow(itr->z - z, 2)));
-    if (closest.size() < n)
-    {
-      pushSpace(closest, *itr, distance, x, y, z);
-    }
-    else
-    {
-      pushFull(closest, *itr, distance, x, y, z);
-    }
-    itr++;
+    starVec.push_back(heap.top()->star);
+    heap.pop();
   }
-  return closest;
+  return starVec;
+}
+
+void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int depth, size_t size)
+{
+  if (kdRoot == nullptr)
+  {
+    return;
+  }
+  kdRoot->dist = sqrt(sqrt(pow(kdRoot->star.x - x1, 2)) + sqrt(pow(kdRoot->star.y - y1, 2)) + sqrt(pow(kdRoot->star.z - z1, 2)));
+  if (heap.size() < size)
+  {
+    heap.push(kdRoot);
+  }
+  else
+  {
+    heap.pop();
+    heap.push(kdRoot);
+  }
+  int cd = depth % 3;
+  float comp;
+  float target;
+  if (cd == 0)
+  {
+    comp = kdRoot->star.x;
+    target = x1;
+  }
+  else if (cd == 1)
+  {
+    comp = kdRoot->star.y;
+    target = y1;
+  }
+  else
+  {
+    comp = kdRoot->star.z;
+    target = z1;
+  }
+  if (target < comp)
+  {
+    findHelp(x1, y1, z1, kdRoot->left, depth + 1, size);
+  }
+  else
+  {
+    findHelp(x1, y1, z1, kdRoot->right, depth + 1, size);
+  }
+  if (depth == 0)
+  {
+    if (abs(kdRoot->star.x - x1) < heap.top()->dist)
+    {
+      if (x1 < kdRoot->star.x)
+      {
+        findHelp(x1, y1, z1, kdRoot->right, depth + 1, size);
+      }
+      else
+      {
+        findHelp(x1, y1, z1, kdRoot->left, depth + 1, size);
+      }
+    }
+  }
+  else if (depth == 1)
+  {
+    if (abs(kdRoot->star.y - y1) < heap.top()->dist)
+    {
+      if (y1 < kdRoot->star.y)
+      {
+        findHelp(x1, y1, z1, kdRoot->right, depth + 1, size);
+      }
+      else
+      {
+        findHelp(x1, y1, z1, kdRoot->left, depth + 1, size);
+      }
+    }
+  }
+  else
+  {
+    if (abs(kdRoot->star.z - z1) < heap.top()->dist)
+    {
+      if (z1 < kdRoot->star.z)
+      {
+        findHelp(x1, y1, z1, kdRoot->right, depth + 1, size);
+      }
+      else
+      {
+        findHelp(x1, y1, z1, kdRoot->left, depth + 1, size);
+      }
+    }
+  }
 }
