@@ -62,7 +62,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   {
     heap.push(kdRoot);
   }
-  else
+  else if (heap.top()->dist > kdRoot->dist)
   {
     heap.pop();
     heap.push(kdRoot);

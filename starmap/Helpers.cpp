@@ -87,4 +87,7 @@ void KD_tree::helpPrint(Node *head)
 void KD_tree::print()
 {
     helpPrint(root);
+    // cout << root->star.x;
+    // cout << root->star.y;
+    // cout << root->star.z;
 }
