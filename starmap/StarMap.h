@@ -17,14 +17,12 @@ private:
     float xCord;
     float yCord;
     float zCord;
-    std::vector<Star> starVec;
     KD_tree tree;
     std::priority_queue<KD_tree::Node *> heap;
 
 public:
     // Constructor & Destructor
     StarMap(std::istream &stream);
-    ~StarMap();
 
     // Required Member Function
     std::vector<Star> find(size_t n, float x, float y, float z);

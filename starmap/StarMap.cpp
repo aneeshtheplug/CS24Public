@@ -37,13 +37,9 @@ StarMap::StarMap(std::istream &stream)
   }
 }
 
-StarMap::~StarMap()
-{
-  starVec.clear();
-}
-
 std::vector<Star> StarMap::find(size_t n, float x, float y, float z)
 {
+  std::vector<Star> starVec;
   findHelp(x, y, z, tree.root, 0, n);
   while (heap.size() > 0)
   {
@@ -95,7 +91,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   {
     findHelp(x1, y1, z1, kdRoot->right, depth + 1, size);
   }
-  if (depth == 0)
+  if (cd == 0)
   {
     if (abs(kdRoot->star.x - x1) < heap.top()->dist)
     {
@@ -109,7 +105,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
       }
     }
   }
-  else if (depth == 1)
+  else if (cd == 1)
   {
     if (abs(kdRoot->star.y - y1) < heap.top()->dist)
     {
