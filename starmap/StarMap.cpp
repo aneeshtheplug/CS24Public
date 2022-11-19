@@ -61,7 +61,7 @@ void StarMap::findHelp(float x1, float y1, float z1, KD_tree::Node *kdRoot, int 
   {
     return;
   }
-  kdRoot->dist = sqrt(pow(kdRoot->star.x - x1, 2) + pow(kdRoot->star.y - y1, 2) + pow(kdRoot->star.z - z1, 2));
+  kdRoot->dist = sqrt(((kdRoot->star.x - x1) * (kdRoot->star.x - x1)) + ((kdRoot->star.y - y1) * (kdRoot->star.y - y1)) + ((kdRoot->star.z - z1) * (kdRoot->star.z - z1)));
   if (heap.size() < size)
   {
     Entry n;
