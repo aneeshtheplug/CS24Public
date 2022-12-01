@@ -15,10 +15,10 @@ Atlas::~Atlas()
 Atlas::Atlas(std::istream &stream)
 {
   Station *previous;
-  int prevNum;
+  int prevNum = 0;
   std::string currLine;
   std::string line, id, name, numS;
-  bool isTrain;
+  bool isTrain = true;
   int num;
   while (std::getline(stream, line))
   {
