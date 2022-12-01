@@ -3,25 +3,27 @@
 
 #include <istream>
 #include <string>
+#include <map>
 
 #include "Trip.h"
+#include "Helpers.h"
 
-
-class Atlas {
+class Atlas
+{
 public:
   // Required Class Function
-  static Atlas* create(std::istream& stream);
+  static Atlas *create(std::istream &stream);
 
 private:
-  // Member Variables
+  std::map<std::string, Station *> stuff;
 
 public:
   // Constructor & Destructor
-  Atlas(std::istream& stream);
+  Atlas(std::istream &stream);
   ~Atlas();
 
   // Required Member Function
-  Trip route(const std::string& src, const std::string& dst);
+  Trip route(const std::string &src, const std::string &dst);
 };
 
 #endif
