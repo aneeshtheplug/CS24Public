@@ -183,7 +183,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
     }
     else
     {
-      top = heap.top().ed->src;
+      top = heap.top().ed->src; // src
       edge = heap.top().ed;
     }
     heap.pop();
@@ -239,13 +239,13 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   {
     Trip::Leg leg;
     Edge *edge = used.at(curr);
-    cout << "did it get here" << endl;
-    Station *prev = edge->dst;
+    Station *prev = edge->dst; // dst
     leg.line = edge->line;
     leg.stop = prev->name;
     trip.legs.push_back(leg);
     curr = prev;
   }
+
   if (trip.legs.size() == 0)
   {
     throw std::runtime_error("No route");
