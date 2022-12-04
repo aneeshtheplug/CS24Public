@@ -2,28 +2,26 @@
 #define HELPERS_H
 #include <string>
 #include <vector>
-
 // If you want to add any helper classes,
 // here's some space to do it in.
-
 struct Station;
 struct Edge
 {
-    int dist;
+    int dist; // distance from one station to another
     std::string line;
     Station *neighbor;
     bool train;
 };
-
 struct Station
 {
     std::string name;
     std::vector<Edge *> vec;
 };
-
+// Pair data type for the min heap
 struct Pair
 {
-    int distance;
+    int distance; // distance from src to id
+    std::string line;
     Station *id;
     Station *previous;
 
@@ -32,5 +30,4 @@ struct Pair
         return this->distance > other.distance;
     }
 };
-
 #endif
