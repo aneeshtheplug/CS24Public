@@ -197,9 +197,9 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
     }
     for (Edge *edges : top->vec)
     {
-      if (edges->src->name == dst)
+      if (edges->src->name == dst) // src
       {
-        used.insert({edges->src, edges});
+        used.insert({edges->src, edges}); // src
         breaker = 1;
         break;
       }
@@ -230,6 +230,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
       std::cout << k->name << ": " << v->dst->name << endl;
     }
   }
+
   Trip trip;
   trip.start = src;
   Station *curr = stuff.at(dst);
@@ -238,7 +239,8 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   {
     Trip::Leg leg;
     Edge *edge = used.at(curr);
-    Station *prev = edge->src;
+    cout << "did it get here" << endl;
+    Station *prev = edge->dst;
     leg.line = edge->line;
     leg.stop = prev->name;
     trip.legs.push_back(leg);
