@@ -1,17 +1,18 @@
 #include "Atlas.h"
 #include <sstream>
+#include <stdexcept>
 #include <iostream>
 #include <climits>
-#include <stdexcept>
 #include <algorithm>
-
 using namespace std;
+
 Atlas *Atlas::create(std::istream &stream)
 {
   // This default implementation will probably do what you want.
   // If you use a different constructor, you'll need to change it.
   return new Atlas(stream);
 }
+
 Atlas::~Atlas()
 {
   for (auto itr = stuff.begin(); itr != stuff.end(); itr++)
@@ -19,6 +20,7 @@ Atlas::~Atlas()
     delete itr->second;
   }
 }
+
 Atlas::Atlas(std::istream &stream)
 {
   Station *previous;
@@ -78,8 +80,10 @@ Atlas::Atlas(std::istream &stream)
           newEdge2->line = currLine;
           newEdge->train = isTrain;
           newEdge2->train = isTrain;
-          newEdge->neighbor = previous;
-          newEdge2->neighbor = newStation;
+          newEdge->src = previous;
+          newEdge->dst = newStation;
+          newEdge2->src = newStation;
+          newEdge2->dst = previous;
           newStation->vec.push_back(newEdge);
           previous->vec.push_back(newEdge2);
           prevNum = num;
@@ -115,8 +119,10 @@ Atlas::Atlas(std::istream &stream)
           newEdge2->line = currLine;
           newEdge->train = isTrain;
           newEdge2->train = isTrain;
-          newEdge->neighbor = previous;
-          newEdge2->neighbor = obj;
+          newEdge->src = previous;
+          newEdge->dst = obj;
+          newEdge2->src = obj;
+          newEdge2->dst = previous;
           obj->vec.push_back(newEdge);
           previous->vec.push_back(newEdge2);
           prevNum = num;
@@ -131,10 +137,11 @@ Atlas::Atlas(std::istream &stream)
     }
   }
 }
+
 Trip Atlas::route(const std::string &src, const std::string &dst)
 {
-  std::map<Station *, int> map; // distance from src to every station in the map
-  std::map<Station *, Pair> used;
+  std::map<Station *, int> map;
+  std::map<Station *, Edge *> used;
   std::priority_queue<Pair> heap;
   int breaker = 0;
   // for (auto const &stations : stuff)
@@ -143,120 +150,96 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   // }
   // for (auto const &stations : map)
   // {
-  //   std::cout << stations.first->name << " ";
+  //   cout << stations.first->name << " ";
   //   for (auto const &neighbors : stations.first->vec)
   //   {
-  //     std::cout << neighbors->neighbor->name << " ";
+  //     cout << neighbors->neighbor->name << " ";
   //   }
-  //   std::cout << endl;
+  //   cout << endl;
   // }
-  for (auto const &stations : stuff)
+  for (auto it = stuff.begin(); it != stuff.end(); it++)
   {
-    map.insert({stations.second, INT_MAX});
-  }
-  map.at(stuff.at(src)) = 0;
-
-  Pair start;
-  start.id = stuff.at(src);
-  start.distance = map.at(stuff.at(src));
-  start.previous = nullptr;
-  heap.push(start);
-  // //print out map
-  //  for(auto const& stations : map){
-  //   cout << stations.first->name << " " << stations.second << endl;
-  //  }
-
-  // while the top of our heap is not our destination & our heap size is not 0
-  while (heap.top().id != stuff.at(dst) && heap.size() != 0)
-  {
-    // Iteratore through all of the neighbors at the top of our heap
-    for (size_t i = 0; i < heap.top().id->vec.size(); i++)
+    if (it->first == src)
     {
-      if (heap.top().id->vec.at(i)->neighbor->name == dst)
-      { // if dst is one of the neighbors of heap.top()
-        Pair destination;
-        destination.id = stuff.at(dst);
-        destination.distance = map.at(heap.top().id) + heap.top().id->vec.at(i)->dist;
-        destination.line = heap.top().id->vec.at(i)->line;
-        destination.previous = heap.top().id;
-        if (destination.distance < map.at(destination.id))
-        {
-          map.at(destination.id) = destination.distance;
-        }
-        used.insert({destination.id, destination});
+      map.insert({stuff.at(it->first), 0});
+    }
+    else
+    {
+      map.insert({stuff.at(it->first), INT_MAX});
+    }
+  }
+  Pair source;
+  source.distance = 0;
+  source.ed = nullptr;
+  heap.push(source);
+  while (heap.size() > 0)
+  {
+    Station *top;
+    Edge *edge;
+    if (heap.top().ed == nullptr)
+    {
+      top = stuff.at(src);
+      edge = nullptr;
+    }
+    else
+    {
+      top = heap.top().ed->src;
+      edge = heap.top().ed;
+    }
+    heap.pop();
+    if (used.find(top) != used.end()) // top is always the same in this case so top can always be found
+    {
+      continue;
+    }
+    else
+    {
+      used.insert({top, edge});
+    }
+    for (Edge *edges : top->vec)
+    {
+      if (edges->src->name == dst)
+      {
+        used.insert({edges->src, edges});
         breaker = 1;
         break;
       }
-      else
+      if (edges->dist + map.at(top) < map.at(edges->src))
       {
-        if (used.count(heap.top().id->vec.at(i)->neighbor) == 0)
-        { // if the current neighbor i am analyzing is not in my visited...
-          cout << "this" << endl;
-          Pair newPair;
-          newPair.id = heap.top().id->vec.at(i)->neighbor;
-          newPair.distance = map.at(heap.top().id) + heap.top().id->vec.at(i)->dist;
-          newPair.line = heap.top().id->vec.at(i)->line;
-          newPair.previous = heap.top().id;
-          if (newPair.distance < map.at(newPair.id))
-          { // if the distance of the new pair is less than the distance associated to it in the map...add it to the heap
-            map.at(newPair.id) = newPair.distance;
-            heap.push(newPair);
-            cout << heap.size() << endl;
-          }
-          else
-          {
-            cout << "that" << endl;
-            continue;
-          }
-        }
-        else
-        { // The current neighbor I am analyzing is in my visited
-          continue;
-        }
-      }
-      // if the top of my heap is in my visited
-      if (used.count(heap.top().id) != 0)
-      {
-        cout << "none" << endl;
-        heap.pop();
-        continue;
-      }
-      else
-      { // if the top of my heap is not in my visited.
-        used.insert({heap.top().id, heap.top()});
-        heap.pop();
+        map.at(edges->src) = edges->dist + map.at(top);
+        Pair newPair;
+        newPair.distance = edges->dist + map.at(top);
+        newPair.ed = edges;
+        heap.push(newPair);
       }
     }
     if (breaker == 1)
     {
-      cout << "breaker" << endl;
       break;
     }
   }
-
-  // FIX MAP?? MAYBE HOLD PAIR INSTEAD?????? Or not because it is sitting in heap.top()
-
-  //  cout << heap.top().previous->name << endl;
-  //  //used print
-  //  for(auto const& stations : used){
-  //   cout << stations.first->name << " Previous:: ";
-  //   if(stations.second.previous != nullptr){
-  //     cout << stations.second.previous->name << endl;
-  //   }
-  //  }
-  cout << used.size() << endl;
-  used.insert({heap.top().id, heap.top()});
-
+  std::cout << used.size() << endl;
+  std::cout << map.size() << endl;
+  for (auto [k, v] : used)
+  {
+    if (v == nullptr)
+    {
+      cout << k->name << endl;
+    }
+    else
+    {
+      std::cout << k->name << ": " << v->dst->name << endl;
+    }
+  }
   Trip trip;
   trip.start = src;
   Station *curr = stuff.at(dst);
 
-  while (curr->name != trip.start)
+  while (curr->name != src)
   {
     Trip::Leg leg;
-    Pair edge = used.at(curr);
-    Station *prev = edge.previous;
-    leg.line = edge.line;
+    Edge *edge = used.at(curr);
+    Station *prev = edge->src;
+    leg.line = edge->line;
     leg.stop = prev->name;
     trip.legs.push_back(leg);
     curr = prev;
@@ -266,6 +249,10 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
     throw std::runtime_error("No route");
   }
   reverse(trip.legs.begin(), trip.legs.end());
-
   return trip;
 }
+// std::string test = src;
+// std::string test2 = dst;
+// Trip *newTrip = new Trip;
+// return *newTrip;
+// station new station, edge new edge,
