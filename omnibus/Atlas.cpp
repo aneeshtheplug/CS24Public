@@ -221,16 +221,25 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
 
   Trip trip;
   trip.start = src;
+
   Station *curr = stuff.at(dst);
 
   while (curr->name != src)
   {
     Trip::Leg leg;
     Edge *edge = nullptr;
-    if (used.at(curr) != nullptr)
+    if (used.count(curr) == 0)
     {
-      edge = used.at(curr);
+      throw std::runtime_error("No route");
     }
+    else
+    {
+      if (used.at(curr) != nullptr)
+      {
+        edge = used.at(curr);
+      }
+    }
+
     Station *prev = edge->dst; // dst
     leg.line = edge->line;
     leg.stop = used.at(curr)->src->name;
