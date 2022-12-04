@@ -152,7 +152,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   // }
   for (auto const &stations : stuff)
   {
-    map.insert({stations.second, std::numeric_limits<int>::max()});
+    map.insert({stations.second, INT_MAX});
   }
   map.at(stuff.at(src)) = 0;
 
