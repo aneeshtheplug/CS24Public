@@ -217,32 +217,42 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
       break;
     }
   }
-  std::cout << used.size() << endl;
-  std::cout << map.size() << endl;
-  for (auto [k, v] : used)
-  {
-    if (v == nullptr)
-    {
-      cout << k->name << endl;
-    }
-    else
-    {
-      std::cout << k->name << ": " << v->dst->name << endl;
-    }
-  }
+  // for (auto [k, v] : used)
+  // {
+  //   if (v == nullptr)
+  //   {
+  //     cout << k->name << endl;
+  //   }
+  //   else
+  //   {
+  //     std::cout << k->name << ": " << v->dst->name << endl;
+  //   }
+  // }
 
   Trip trip;
   trip.start = src;
   Station *curr = stuff.at(dst);
 
+  // cout << used.at(curr)->dst->name << endl;
   while (curr->name != src)
   {
     Trip::Leg leg;
-    Edge *edge = used.at(curr);
+    Edge *edge = nullptr;
+    if (used.at(curr) != nullptr)
+    {
+      edge = used.at(curr);
+    }
     Station *prev = edge->dst; // dst
     leg.line = edge->line;
-    leg.stop = prev->name;
-    trip.legs.push_back(leg);
+    leg.stop = used.at(curr)->src->name;
+    if (trip.legs.size() == 0)
+    {
+      trip.legs.push_back(leg);
+    }
+    else if (trip.legs.back().line != leg.line)
+    {
+      trip.legs.push_back(leg);
+    }
     curr = prev;
   }
 
@@ -253,8 +263,3 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   reverse(trip.legs.begin(), trip.legs.end());
   return trip;
 }
-// std::string test = src;
-// std::string test2 = dst;
-// Trip *newTrip = new Trip;
-// return *newTrip;
-// station new station, edge new edge,
