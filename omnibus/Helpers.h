@@ -21,4 +21,16 @@ struct Station
     std::vector<Edge *> vec;
 };
 
+struct Pair
+{
+    int distance;
+    Station *id;
+    Station *previous;
+
+    bool operator<(const Pair &other) const
+    {
+        return this->distance > other.distance;
+    }
+};
+
 #endif
