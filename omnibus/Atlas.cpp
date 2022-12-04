@@ -230,7 +230,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
     Edge *edge = nullptr;
     if (used.count(curr) == 0)
     {
-      throw std::runtime_error("No route");
+      throw std::runtime_error("No route.");
     }
     else
     {
@@ -255,7 +255,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   }
   if (trip.legs.size() == 0)
   {
-    throw std::runtime_error("No route");
+    throw std::runtime_error("No route.");
   }
   reverse(trip.legs.begin(), trip.legs.end());
   return trip;
