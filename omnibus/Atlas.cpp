@@ -5,22 +5,23 @@
 #include <climits>
 #include <algorithm>
 using namespace std;
-
 Atlas *Atlas::create(std::istream &stream)
 {
   // This default implementation will probably do what you want.
   // If you use a different constructor, you'll need to change it.
   return new Atlas(stream);
 }
-
 Atlas::~Atlas()
 {
   for (auto itr = stuff.begin(); itr != stuff.end(); itr++)
   {
+    for (size_t i = 0; i < itr->second->vec.size(); i++)
+    {
+      delete itr->second->vec.at(i);
+    }
     delete itr->second;
   }
 }
-
 Atlas::Atlas(std::istream &stream)
 {
   Station *previous;
@@ -39,6 +40,7 @@ Atlas::Atlas(std::istream &stream)
     sstream >> id;
     if (id == "BUS:" || id == "TRAIN:")
     {
+      sstream >> ws;
       std::getline(sstream, currLine);
       if (id == "BUS:")
       {
@@ -137,7 +139,6 @@ Atlas::Atlas(std::istream &stream)
     }
   }
 }
-
 Trip Atlas::route(const std::string &src, const std::string &dst)
 {
   std::map<Station *, int> map;
@@ -217,23 +218,11 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
       break;
     }
   }
-  // for (auto [k, v] : used)
-  // {
-  //   if (v == nullptr)
-  //   {
-  //     cout << k->name << endl;
-  //   }
-  //   else
-  //   {
-  //     std::cout << k->name << ": " << v->dst->name << endl;
-  //   }
-  // }
 
   Trip trip;
   trip.start = src;
   Station *curr = stuff.at(dst);
 
-  // cout << used.at(curr)->dst->name << endl;
   while (curr->name != src)
   {
     Trip::Leg leg;
@@ -255,7 +244,6 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
     }
     curr = prev;
   }
-
   if (trip.legs.size() == 0)
   {
     throw std::runtime_error("No route");
