@@ -144,7 +144,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
   std::map<Station *, int> map;
   std::map<Station *, Edge *> used;
   std::priority_queue<Pair> heap;
-  int breaker = 0;
+  // int breaker = 0;
   // for (auto const &stations : stuff)
   // {
   //   map.insert({stations.second, numeric_limits<int>::max()});
@@ -188,7 +188,7 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
       edge = heap.top().ed;
     }
     heap.pop();
-    if (used.find(top) != used.end()) // top is always the same in this case so top can always be found
+    if (used.find(top) != used.end())
     {
       continue;
     }
@@ -196,14 +196,18 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
     {
       used.insert({top, edge});
     }
+    if (top->name == dst)
+    {
+      break;
+    }
     for (Edge *edges : top->vec)
     {
-      if (edges->src->name == dst) // src
-      {
-        used.insert({edges->src, edges}); // src
-        breaker = 1;
-        break;
-      }
+      // if (edges->src->name == dst) // src
+      // {
+      //   used.insert({edges->src, edges}); // src
+      //   breaker = 1;
+      //   break;
+      // }
       if (edges->dist + map.at(top) < map.at(edges->src))
       {
         map.at(edges->src) = edges->dist + map.at(top);
@@ -213,10 +217,10 @@ Trip Atlas::route(const std::string &src, const std::string &dst)
         heap.push(newPair);
       }
     }
-    if (breaker == 1)
-    {
-      break;
-    }
+    // if (breaker == 1)
+    // {
+    //   break;
+    // }
   }
 
   Trip trip;
